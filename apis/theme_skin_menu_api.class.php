@@ -1,5 +1,5 @@
 <?php
-//
+//  
 //    ______         ______           __         __         ______
 //   /\  ___\       /\  ___\         /\_\       /\_\       /\  __ \
 //   \/\  __\       \/\ \____        \/\_\      \/\_\      \/\ \_\ \
@@ -7,7 +7,7 @@
 //     \/_____/       \/_____/     \/__\/_/       \/_/       \/_/ /_/
 //
 //   上海商创网络科技有限公司
-//
+//   
 //  ---------------------------------------------------------------------------------
 //
 //   一、协议的许可和权利
@@ -45,55 +45,25 @@
 //  ---------------------------------------------------------------------------------
 //
 defined('IN_ECJIA') or exit('No permission resources.');
-
 /**
- * ECJIA后台应用模块菜单
+ * 后台外观菜单API
+
  */
-class theme_admin_menu_api extends Component_Event_Api {
+class theme_skin_menu_api extends Component_Event_Api {
+	
 	public function call(&$options) {
-		$menus = ecjia_admin::make_admin_menu('01_theme','主题管理', '', 14);
-		$submenus = array(
-			ecjia_admin::make_admin_menu('01_theme_list', '主题选择', RC_Uri::url('theme/admin/init'), 1)->add_purview(array('theme_manage')),
+
+		$menus = array(
+			ecjia_admin::make_admin_menu('template_switch', __('主题选择'), RC_Uri::url('theme/admin_template/init'), 0)->add_purview('template_select'),
+			ecjia_admin::make_admin_menu('template_layout', __('布局管理'), RC_Uri::url('theme/admin_layout/init'), 1)->add_purview('template_setup'),
+			ecjia_admin::make_admin_menu('template_library', __('库项目管理'), RC_Uri::url('theme/admin_library/init'), 3)->add_purview('library_manage'),
+			ecjia_admin::make_admin_menu('template_backup_setting', __('布局设置备份'), RC_Uri::url('theme/admin_layout_backup/init'), 4)->add_purview('backup_setting'),
+			ecjia_admin::make_admin_menu('divider', '', '', 10)->add_purview('navigator'),
+			ecjia_admin::make_admin_menu('navigator', __('菜单'), RC_Uri::url('theme/navigator/init'), 11)->add_purview('navigator'),
 		);
-        $menus->add_submenu($submenus);
-        return $menus;
-    }
+		
+		return $menus;
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // end

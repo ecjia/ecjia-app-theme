@@ -49,7 +49,7 @@
  */
 defined('IN_ECJIA') or exit('No permission resources.');
 
-class admin extends ecjia_admin {
+class admin_template extends ecjia_admin {
 
     /**
      * 当前主题对象
@@ -70,7 +70,7 @@ class admin extends ecjia_admin {
 		RC_Script::enqueue_script('jquery-uniform');
 
 		
-		RC_Script::enqueue_script('theme', RC_App::apps_url('statics/js/theme.js', __FILE__));		
+		RC_Script::enqueue_script('template', RC_App::apps_url('statics/js/template.js', __FILE__));		
 		$admin_template_lang = array(
 				'choosetemplate'     => __("启用新的模板将覆盖原来的模板。\n您确定要启用选定的模板吗？"),
 				'choosetemplateFG'   => __('您确定要启用选定的模板风格吗？'),
@@ -79,16 +79,16 @@ class admin extends ecjia_admin {
 				'ok'                 => __('确定'),
 				'cancel'             => __('取消')
 		);
-		RC_Script::localize_script('theme', 'admin_template_lang', $admin_template_lang );
+		RC_Script::localize_script('template', 'admin_template_lang', $admin_template_lang );
 		
-		ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('外观'), RC_Uri::url('theme/admin/init')));
+		ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('外观'), RC_Uri::url('theme/admin_template/init')));
 	}
 
 	/**
 	 * 模版列表
 	 */
 	public function init() {
-		$this->admin_priv('theme_manage');
+		$this->admin_priv('template_select');
 
 		/* 获得当前的模版的信息 */
 		$curr_style = Ecjia_ThemeManager::getStyleName(); 
@@ -128,7 +128,8 @@ class admin extends ecjia_admin {
 	 * 安装模版
 	 */
 	public function install() {
-		$this->admin_priv('backup_setting');
+		$this->admin_priv('template_select');
+		
 		$tpl_name = trim($_GET['tpl_name']);
 		$tpl_fg   = trim($_GET['tpl_fg']) ?: ''; 
 		if ($tpl_name != Ecjia_ThemeManager::getTemplateName()) {
@@ -139,7 +140,7 @@ class admin extends ecjia_admin {
             ecjia_config::write(Ecjia_ThemeManager::getStyleCode(), $tpl_fg);
         }
 
-		return $this->showmessage('启用模板成功。', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('theme/admin/init')));
+		return $this->showmessage('启用模板成功。', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('theme/admin_template/init')));
 	}
 
 }
