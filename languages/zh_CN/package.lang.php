@@ -50,7 +50,7 @@ defined('IN_ECJIA') or exit('No permission resources.');
  * ECJIA 应用语言包
  */
 return array(
-	'theme' 	 => '主题管理',
+	'theme' 	 => '主题',
 	'theme_desc' => '方便快捷切换不同主题'
 );
 
