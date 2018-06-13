@@ -2,9 +2,9 @@
 
 namespace Ecjia\App\Theme;
 
-use Royalcms\Component\App\AppServiceProvider;
+use Royalcms\Component\App\AppParentServiceProvider;
 
-class ThemeServiceProvider extends  AppServiceProvider
+class ThemeServiceProvider extends  AppParentServiceProvider
 {
     
     public function boot()
