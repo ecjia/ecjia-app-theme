@@ -9,7 +9,7 @@ class ThemeServiceProvider extends  AppParentServiceProvider
     
     public function boot()
     {
-        $this->package('ecjia/app-theme', null, dirname(__DIR__));
+        $this->package('ecjia/app-theme');
     }
     
     public function register()
