@@ -100,7 +100,13 @@ class MobileShake extends MarketAbstract
      */
     public function handleData()
     {
+        return [
+            'module' => $this->code,
+            'title' => '',
+            'data'  => [
 
+            ],
+        ];
     }
 
 
