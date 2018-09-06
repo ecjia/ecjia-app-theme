@@ -63,7 +63,7 @@ class MobileShake extends MarketAbstract
      * 代号标识
      * @var string
      */
-    protected $code = 'index_banner';
+    protected $code = 'banner';
 
     /**
      * 名称
