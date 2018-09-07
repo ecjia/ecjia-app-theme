@@ -54,34 +54,34 @@
 namespace Ecjia\App\Theme\Components;
 
 
-use Ecjia\App\Theme\MarketAbstract;
+use Ecjia\App\Theme\ComponentAbstract;
 
-class MobileShake extends MarketAbstract
+class HomeCycleimage extends ComponentAbstract
 {
 
     /**
      * 代号标识
      * @var string
      */
-    protected $code = 'banner';
+    protected $code = 'home_cycleimage';
 
     /**
      * 名称
      * @var string
      */
-    protected $name = '首页轮播图Banner';
+    protected $name = '首页轮播图';
 
     /**
      * 描述
      * @var string
      */
-    protected $description = '首页轮播图Banner，最多支持10个。';
+    protected $description = '首页轮播图，最多支持10个。';
 
     /**
      * 缩略图
      * @var string
      */
-    protected $thumb = '/statics/images/icon/mobile_shake.png'; //图片未添加
+    protected $thumb = '/statics/images/thumb/module_player.png'; //图片未添加
 
 
     /**
@@ -89,9 +89,12 @@ class MobileShake extends MarketAbstract
      */
     public function handlePriviewHtml()
     {
+        $data = $this->queryData();
+
+        return <<<HTML
 
 
-
+HTML;
     }
 
 
@@ -100,13 +103,52 @@ class MobileShake extends MarketAbstract
      */
     public function handleData()
     {
+        $data = $this->queryData();
+
         return [
             'module' => $this->code,
             'title' => '',
-            'data'  => [
-
-            ],
+            'data'  => $data,
         ];
+    }
+
+
+    protected function queryData()
+    {
+        $request = royalcms('request');
+
+        $city_id	= $request->input('city_id', 0);
+
+        $device_client = $request->header('device-client', 'iphone');
+
+        if ($device_client == 'android') {
+            $client = \Ecjia\App\Adsense\Client::ANDROID;
+        } elseif ($device_client == 'h5') {
+            $client = \Ecjia\App\Adsense\Client::H5;
+        } else {
+            $client = \Ecjia\App\Adsense\Client::IPHONE;
+        }
+
+        $cycleimageDatas = \RC_Api::api('adsense',  'cycleimage', [
+            'code'     => 'home_cycleimage',
+            'client'   => $client,
+            'city'     => $city_id
+        ]);
+
+        $player_data = array();
+        foreach ($cycleimageDatas as $val) {
+            $player_data[] = array(
+                'photo' => array(
+                    'small'      => $val['image'],
+                    'thumb'      => $val['image'],
+                    'url'        => $val['image'],
+                ),
+                'url'        => $val['url'],
+                'description'=> $val['text'],
+            );
+        }
+
+        return $player_data;
     }
 
 

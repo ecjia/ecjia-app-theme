@@ -108,7 +108,7 @@ class Factory
         }
     
         $className = self::$factories[$code];
-    
+
         return new $className();
     }
     
