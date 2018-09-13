@@ -81,7 +81,7 @@ class HomeCycleimage extends ComponentAbstract
      * 缩略图
      * @var string
      */
-    protected $thumb = '/statics/images/thumb/module_player.png'; //图片未添加
+    protected $thumb = '/statics/images/thumb/module_cycleimage.png'; //图片未添加
 
 
     /**

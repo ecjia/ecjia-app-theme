@@ -44,86 +44,131 @@
 //
 //  ---------------------------------------------------------------------------------
 //
-namespace Ecjia\App\Theme;
+/**
+ * Created by PhpStorm.
+ * User: royalwang
+ * Date: 2018/7/23
+ * Time: 11:56 AM
+ */
 
-abstract class ComponentAbstract
+namespace Ecjia\App\Theme\Components;
+
+
+use Ecjia\App\Theme\ComponentAbstract;
+
+class PromoteGoods extends ComponentAbstract
 {
 
     /**
      * 代号标识
      * @var string
      */
-    protected $code;
-    
+    protected $code = 'promote_goods';
+
     /**
      * 名称
      * @var string
      */
-    protected $name;
-    
+    protected $name = '首页促销商品';
+
     /**
      * 描述
      * @var string
      */
-    protected $description;
-    
+    protected $description = '首页促销商品，最多支持10个。';
+
     /**
      * 缩略图
      * @var string
      */
-    protected $thumb;
+    protected $thumb = '/statics/images/thumb/module_promotegoods.png'; //图片未添加
+
 
     /**
-     * 排序
-     * @var int
+     * 预览显示使用的HTML
      */
-    protected $sort = 0;
-    
-    public function getCode()
+    public function handlePriviewHtml()
     {
-        return $this->code;
+        $data = $this->queryData();
+
+        return <<<HTML
+
+
+HTML;
     }
-    
-    public function getName()
-    {
-        return $this->name;
-    }
-    
-    public function getDescription()
-    {
-        return $this->description;
-    }
-    
-    public function getThumb()
-    {
-    	if ($this->thumb)
-    	{
-    		$this->icon = \RC_App::apps_url('', __DIR__) . $this->thumb;
-    	}
-    	return $this->icon;
-    }
-    
-    public function getSort()
-    {
-    	return $this->sort;
-    }
-    
-    public function setSort($sort)
-    {
-    	$this->sort = $sort;
-    	return $this;
-    }
-    
-    /**
-     * 预览显示使用的HTML，抽象方法
-     */
-    abstract public function handlePriviewHtml();
+
 
     /**
      * API使用的数据格式
-     * @return mixed
      */
-    abstract public function handleData();
+    public function handleData()
+    {
+        $data = $this->queryData();
+
+        return [
+            'module' => $this->code,
+            'title' => '',
+            'data'  => $data,
+        ];
+    }
+
+
+    protected function queryData()
+    {
+        $request 	= royalcms('request');
+        $location 	= $request->input('location', array());
+        $city_id	= $request->input('city_id', 0);
+
+        if (is_array($location) && isset($location['latitude']) && isset($location['longitude'])) {
+        	$request                     = array('location' => $location);
+        	$geohash                     = \RC_Loader::load_app_class('geohash', 'store');
+        	$geohash_code                = $geohash->encode($location['latitude'] , $location['longitude']);
+        	$store_id_group   			 = \RC_Api::api('store', 'neighbors_store_id', array('geohash' => $geohash_code, 'city_id' => $city_id));
+        
+        	if (empty($store_id_group)) {
+        		$store_id_group = array(0);
+        	}
+        }
+        
+        $promote_goods_data = array();
+        $order_sort         = array('g.sort_order' => 'ASC', 'goods_id' => 'DESC');
+        $filter = array(
+        		'intro'	  => 'promotion',
+        		'sort'	  => $order_sort,
+        		'page'	  => 1,
+        		'size'	  => 6,
+        		'store_id' => $store_id_group,
+        );
+        
+        $result = \RC_Api::api('goods', 'goods_list', $filter);
+        $promote_goods_data = [];
+        if ( !empty($result['list']) ) {
+        	foreach ( $result['list'] as $key => $val ) {
+        		$promote_goods_data[] = array(
+        				'id'		                => intval($val['goods_id']),
+        				'goods_id'	                => intval($val['goods_id']),           //多商铺中不用，后期删除
+        				'name'		                => $val['goods_name'],
+        				'market_price'	            => $val['market_price'],
+        				'shop_price'	            => $val['shop_price'],
+        				'promote_price'	            => $val['promote_price'],
+        				'manage_mode'               => $val['manage_mode'],
+        				'unformatted_promote_price' => $val['unformatted_promote_price'],
+        				'promote_start_date'        => $val['promote_start_date'],
+        				'promote_end_date'          => $val['promote_end_date'],
+        				'img'                       => array(
+        						'small' => $val['goods_thumb'],
+        						'thumb' => $val['goods_img'],
+        						'url'	=> $val['original_img'],
+        				),
+        				'store_id'					=> $val['store_id'],
+        				'store_name'				=> $val['store_name'],
+        				'store_logo'				=> $val['store_logo']
+        		);
+        	}
+        }
+
+        return $promote_goods_data;
+    }
 
 
 }

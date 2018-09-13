@@ -44,86 +44,104 @@
 //
 //  ---------------------------------------------------------------------------------
 //
-namespace Ecjia\App\Theme;
+/**
+ * Created by PhpStorm.
+ * User: royalwang
+ * Date: 2018/7/23
+ * Time: 11:56 AM
+ */
 
-abstract class ComponentAbstract
+namespace Ecjia\App\Theme\Components;
+
+
+use Ecjia\App\Theme\ComponentAbstract;
+
+class HomeComplexAdsenseTwo extends ComponentAbstract
 {
 
     /**
      * 代号标识
      * @var string
      */
-    protected $code;
-    
+    protected $code = 'home_complex_adsense_two';
+
     /**
      * 名称
      * @var string
      */
-    protected $name;
-    
+    protected $name = '首页广告组二';
+
     /**
      * 描述
      * @var string
      */
-    protected $description;
-    
+    protected $description = '首页广告组二，最多支持10个。';
+
     /**
      * 缩略图
      * @var string
      */
-    protected $thumb;
+    protected $thumb = '/statics/images/thumb/module_home_adsense_two.png'; //图片未添加
+
 
     /**
-     * 排序
-     * @var int
+     * 预览显示使用的HTML
      */
-    protected $sort = 0;
-    
-    public function getCode()
+    public function handlePriviewHtml()
     {
-        return $this->code;
+        $data = $this->queryData();
+
+        return <<<HTML
+
+
+HTML;
     }
-    
-    public function getName()
-    {
-        return $this->name;
-    }
-    
-    public function getDescription()
-    {
-        return $this->description;
-    }
-    
-    public function getThumb()
-    {
-    	if ($this->thumb)
-    	{
-    		$this->icon = \RC_App::apps_url('', __DIR__) . $this->thumb;
-    	}
-    	return $this->icon;
-    }
-    
-    public function getSort()
-    {
-    	return $this->sort;
-    }
-    
-    public function setSort($sort)
-    {
-    	$this->sort = $sort;
-    	return $this;
-    }
-    
-    /**
-     * 预览显示使用的HTML，抽象方法
-     */
-    abstract public function handlePriviewHtml();
+
 
     /**
      * API使用的数据格式
-     * @return mixed
      */
-    abstract public function handleData();
+    public function handleData()
+    {
+        $data = $this->queryData();
+
+        return [
+            'module' => $this->code,
+            'title' => '',
+            'data'  => $data,
+        ];
+    }
+
+
+    protected function queryData()
+    {
+        $request = royalcms('request');
+        $city_id	= $request->input('city_id', 0);
+        $location	= $request->input('location', array());
+        
+        $mobile_home_adsense_group_two = [];
+       
+        
+        $device_client = $request->header('device-client', 'iphone');
+        
+        if ($device_client == 'android') {
+        	$client = \Ecjia\App\Adsense\Client::ANDROID;
+        } elseif ($device_client == 'h5') {
+        	$client = \Ecjia\App\Adsense\Client::H5;
+        } else {
+        	$client = \Ecjia\App\Adsense\Client::IPHONE;
+        }
+        
+        $mobile_home_adsense_group_two = \RC_Api::api('adsense',  'adsense_group', [
+        		'code'     => 'home_complex_adsense',
+        		'client'   => $client,
+        		'city'     => $city_id
+        		]);
+         
+        $response['adsense_group'] = $mobile_home_adsense_group_two;
+
+        return $mobile_home_adsense_group_two;
+    }
 
 
 }
