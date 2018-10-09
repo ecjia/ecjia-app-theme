@@ -44,104 +44,18 @@
 //
 //  ---------------------------------------------------------------------------------
 //
+defined('IN_ECJIA') or exit('No permission resources.');
+
 /**
- * Created by PhpStorm.
- * User: royalwang
- * Date: 2018/7/23
- * Time: 11:56 AM
+ * 移动应用首页模块设置
+ * @author 
  */
+class theme_tool_menu_api extends Component_Event_Api {
 
-namespace Ecjia\App\Theme\Components;
-
-
-use Ecjia\App\Theme\ComponentAbstract;
-
-class HomeComplexAdsenseTwo extends ComponentAbstract
-{
-
-    /**
-     * 代号标识
-     * @var string
-     */
-    protected $code = 'home_complex_adsense_two';
-
-    /**
-     * 名称
-     * @var string
-     */
-    protected $name = '首页广告组二';
-
-    /**
-     * 描述
-     * @var string
-     */
-    protected $description = '首页广告组二，最多支持10个。';
-
-    /**
-     * 缩略图
-     * @var string
-     */
-    protected $thumb = '/statics/images/thumb/module_home_adsense_two.png'; //图片未添加
-
-
-    /**
-     * 预览显示使用的HTML
-     */
-    public function handlePriviewHtml()
-    {
-        $data = $this->queryData();
-
-        return <<<HTML
-
-
-HTML;
+    public function call(&$options) {
+        $menus = ecjia_admin::make_admin_menu('22_home_group_set', '首页模块设置', RC_Uri::url('theme/admin_home_group_sort/init'), 22)->add_purview('home_group_manage');
+        return $menus;
     }
-
-
-    /**
-     * API使用的数据格式
-     */
-    public function handleData()
-    {
-        $data = $this->queryData();
-
-        return [
-            'module' => $this->code,
-            'title' => '',
-            'data'  => $data,
-        ];
-    }
-
-
-    protected function queryData()
-    {
-        $request = royalcms('request');
-        $city_id	= $request->input('city_id', 0);
-        $location	= $request->input('location', array());
-        
-        $mobile_home_adsense_group_two = [];
-       
-        
-        $device_client = $request->header('device-client', 'iphone');
-        
-        if ($device_client == 'android') {
-        	$client = \Ecjia\App\Adsense\Client::ANDROID;
-        } elseif ($device_client == 'h5') {
-        	$client = \Ecjia\App\Adsense\Client::H5;
-        } else {
-        	$client = \Ecjia\App\Adsense\Client::IPHONE;
-        }
-        
-        $mobile_home_adsense_group_two = \RC_Api::api('adsense',  'adsense_group', [
-        		'code'     => 'home_complex_adsense2',
-        		'client'   => $client,
-        		'city'     => $city_id
-        		]);
-         
-        $response['adsense_group'] = $mobile_home_adsense_group_two;
-
-        return $mobile_home_adsense_group_two;
-    }
-
-
 }
+
+// end
