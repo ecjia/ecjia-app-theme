@@ -133,7 +133,7 @@ HTML;
         }
         
         $mobile_home_adsense_group_two = \RC_Api::api('adsense',  'adsense_group', [
-        		'code'     => 'home_complex_adsense2',
+        		'code'     => 'home_complex_adsense_two',
         		'client'   => $client,
         		'city'     => $city_id
         		]);
