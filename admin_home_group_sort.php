@@ -136,9 +136,9 @@ class admin_home_group_sort extends ecjia_admin {
 			$sort_last = serialize($sort_last);
 		}
 		if (!empty($sort_last)) {
-			if (!ecjia::config('home_visual_page', ecjia::CONFIG_CHECK)) {
-				ecjia_config::instance()->insert_config('text', 'home_visual_page', '', array('type' => 'text'));
-			}
+// 			if (!ecjia::config('home_visual_page', ecjia::CONFIG_CHECK)) {
+// 				ecjia_config::instance()->insert_config('text', 'home_visual_page', '', array('type' => 'text'));
+// 			}
 			ecjia_config::instance()->write_config('home_visual_page', $sort_last);
 		} else {
 			ecjia_config::instance()->write_config('home_visual_page', '');
