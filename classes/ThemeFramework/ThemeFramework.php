@@ -78,6 +78,12 @@ class ThemeFramework extends ThemeFrameworkAbstract
     // run framework construct
     public function __construct( $settings, $options )
     {
+        // active modules
+        defined( 'CS_ACTIVE_FRAMEWORK' )  or  define( 'CS_ACTIVE_FRAMEWORK',  true );
+        defined( 'CS_ACTIVE_METABOX'   )  or  define( 'CS_ACTIVE_METABOX',    true );
+        defined( 'CS_ACTIVE_TAXONOMY'   ) or  define( 'CS_ACTIVE_TAXONOMY',   true );
+        defined( 'CS_ACTIVE_SHORTCODE' )  or  define( 'CS_ACTIVE_SHORTCODE',  true );
+        defined( 'CS_ACTIVE_CUSTOMIZE' )  or  define( 'CS_ACTIVE_CUSTOMIZE',  true );
 
         $this->settings = RC_Hook::apply_filters( 'cs_framework_settings', $settings );
         $this->options  = RC_Hook::apply_filters( 'cs_framework_options', $options );
