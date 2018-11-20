@@ -2,6 +2,8 @@
 
 namespace Ecjia\App\Theme\ThemeFramework\Support;
 
+use RC_Hook;
+
 class Sanitize
 {
     /**
@@ -126,12 +128,12 @@ class Sanitize
 
 }
 
-add_filter( 'cs_sanitize_text', 'cs_sanitize_text', 10, 2 );
-add_filter( 'cs_sanitize_textarea', 'cs_sanitize_textarea' );
-add_filter( 'cs_sanitize_checkbox', 'cs_sanitize_checkbox' );
-add_filter( 'cs_sanitize_switcher', 'cs_sanitize_checkbox' );
-add_filter( 'cs_sanitize_image_select', 'cs_sanitize_image_select' );
-add_filter( 'cs_sanitize_group', 'cs_sanitize_group' );
-add_filter( 'cs_sanitize_title', 'cs_sanitize_title' );
-add_filter( 'cs_sanitize_clean', 'cs_sanitize_clean', 10, 2 );
+RC_Hook::add_filter( 'cs_sanitize_text', 'cs_sanitize_text', 10, 2 );
+RC_Hook::add_filter( 'cs_sanitize_textarea', 'cs_sanitize_textarea' );
+RC_Hook::add_filter( 'cs_sanitize_checkbox', 'cs_sanitize_checkbox' );
+RC_Hook::add_filter( 'cs_sanitize_switcher', 'cs_sanitize_checkbox' );
+RC_Hook::add_filter( 'cs_sanitize_image_select', 'cs_sanitize_image_select' );
+RC_Hook::add_filter( 'cs_sanitize_group', 'cs_sanitize_group' );
+RC_Hook::add_filter( 'cs_sanitize_title', 'cs_sanitize_title' );
+RC_Hook::add_filter( 'cs_sanitize_clean', 'cs_sanitize_clean', 10, 2 );
 

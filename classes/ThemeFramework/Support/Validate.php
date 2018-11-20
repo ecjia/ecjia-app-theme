@@ -2,6 +2,8 @@
 
 namespace Ecjia\App\Theme\ThemeFramework\Support;
 
+use RC_Hook;
+
 class Validate
 {
     /**
@@ -56,7 +58,7 @@ class Validate
 
 }
 
-add_filter( 'cs_validate_email', 'cs_validate_email', 10, 2 );
-add_filter( 'cs_validate_numeric', 'cs_validate_numeric', 10, 2 );
-add_filter( 'cs_validate_required', 'cs_validate_required' );
+RC_Hook::add_filter( 'cs_validate_email', 'cs_validate_email', 10, 2 );
+RC_Hook::add_filter( 'cs_validate_numeric', 'cs_validate_numeric', 10, 2 );
+RC_Hook::add_filter( 'cs_validate_required', 'cs_validate_required' );
 

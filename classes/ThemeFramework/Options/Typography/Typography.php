@@ -3,6 +3,7 @@
 namespace Ecjia\App\Theme\ThemeFramework\Options\Typography;
 
 use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
+use RC_Hook;
 
 /**
  *
@@ -31,7 +32,7 @@ class Typography extends Options
             'font'    => 'websafe',
         );
 
-        $default_variants = apply_filters( 'cs_websafe_fonts_variants', array(
+        $default_variants = RC_Hook::apply_filters( 'cs_websafe_fonts_variants', array(
             'regular',
             'italic',
             '700',
@@ -39,7 +40,7 @@ class Typography extends Options
             'inherit'
         ));
 
-        $websafe_fonts = apply_filters( 'cs_websafe_fonts', array(
+        $websafe_fonts = RC_Hook::apply_filters( 'cs_websafe_fonts', array(
             'Arial',
             'Arial Black',
             'Comic Sans MS',
@@ -76,7 +77,7 @@ class Typography extends Options
             echo '<label class="cs-typography-family">';
             echo '<select name="'. $this->element_name( '[family]' ) .'" class="'. $is_chosen . $chosen_rtl .'cs-typo-family" data-atts="family"'. $this->element_attributes() .'>';
 
-            do_action( 'cs_typography_family', $family_value, $this );
+            RC_Hook::do_action( 'cs_typography_family', $family_value, $this );
 
             echo '<optgroup label="'. __( 'Web Safe Fonts', 'cs-framework' ) .'">';
             foreach ( $websafe_fonts as $websafe_value ) {

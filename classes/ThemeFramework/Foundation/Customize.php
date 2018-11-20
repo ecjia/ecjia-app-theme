@@ -9,6 +9,7 @@
 namespace Ecjia\App\Theme\ThemeFramework\Foundation;
 
 use Ecjia\App\Theme\ThemeFramework\ThemeFrameworkAbstract;
+use RC_Hook;
 
 /**
  *
@@ -52,7 +53,7 @@ class Customize extends ThemeFrameworkAbstract
     public function __construct( $options )
     {
 
-        $this->options = apply_filters( 'cs_customize_options', $options );
+        $this->options = RC_Hook::apply_filters( 'cs_customize_options', $options );
 
         if( ! empty( $this->options ) ) {
             $this->addAction( 'customize_register', 'customize_register' );
@@ -75,7 +76,7 @@ class Customize extends ThemeFrameworkAbstract
 
         // load extra WP_Customize_Control
         cs_locate_template( 'functions/custom.php' );
-        do_action( 'cs_customize_register' );
+        RC_Hook::do_action( 'cs_customize_register' );
 
         $panel_priority = 1;
 

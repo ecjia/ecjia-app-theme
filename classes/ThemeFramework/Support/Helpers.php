@@ -2,6 +2,8 @@
 
 namespace Ecjia\App\Theme\ThemeFramework\Support;
 
+use RC_Hook;
+
 class Helpers
 {
 
@@ -249,7 +251,7 @@ class Helpers
 
         }
 
-        do_action( 'cs_load_option_fields' );
+        RC_Hook::do_action( 'cs_load_option_fields' );
 
     }
 

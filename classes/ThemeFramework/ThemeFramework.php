@@ -8,6 +8,8 @@
 
 namespace Ecjia\App\Theme\ThemeFramework;
 
+use RC_Hook;
+
 /**
  *
  * Framework Class
@@ -77,8 +79,8 @@ class ThemeFramework extends ThemeFrameworkAbstract
     public function __construct( $settings, $options )
     {
 
-        $this->settings = apply_filters( 'cs_framework_settings', $settings );
-        $this->options  = apply_filters( 'cs_framework_options', $options );
+        $this->settings = RC_Hook::apply_filters( 'cs_framework_settings', $settings );
+        $this->options  = RC_Hook::apply_filters( 'cs_framework_options', $options );
 
         if( ! empty( $this->options ) ) {
 
@@ -232,14 +234,14 @@ class ThemeFramework extends ThemeFrameworkAbstract
                             $sanitize_type = ( $field['sanitize'] !== false ) ? $field['sanitize'] : false;
                         }
 
-                        if ( $sanitize_type !== false && has_filter( 'cs_sanitize_'. $sanitize_type ) ) {
-                            $request[$field['id']] = apply_filters( 'cs_sanitize_' . $sanitize_type, $request_value, $field, $section['fields'] );
+                        if ( $sanitize_type !== false && RC_Hook::has_filter( 'cs_sanitize_'. $sanitize_type ) ) {
+                            $request[$field['id']] = RC_Hook::apply_filters( 'cs_sanitize_' . $sanitize_type, $request_value, $field, $section['fields'] );
                         }
 
                         // validate options
-                        if ( isset( $field['validate'] ) && has_filter( 'cs_validate_'. $field['validate'] ) ) {
+                        if ( isset( $field['validate'] ) && RC_Hook::has_filter( 'cs_validate_'. $field['validate'] ) ) {
 
-                            $validate = apply_filters( 'cs_validate_' . $field['validate'], $request_value, $field, $section['fields'] );
+                            $validate = RC_Hook::apply_filters( 'cs_validate_' . $field['validate'], $request_value, $field, $section['fields'] );
 
                             if ( ! empty( $validate ) ) {
                                 $add_errors[] = $this->add_settings_error( $validate, 'error', $field['id'] );
@@ -258,9 +260,9 @@ class ThemeFramework extends ThemeFrameworkAbstract
             }
         }
 
-        $request = apply_filters( 'cs_validate_save', $request );
+        $request = RC_Hook::apply_filters( 'cs_validate_save', $request );
 
-        do_action( 'cs_validate_save', $request );
+        RC_Hook::do_action( 'cs_validate_save', $request );
 
         // set transient
         $transient_time = ( cs_language_defaults() !== false ) ? 30 : 10;

@@ -9,6 +9,7 @@
 namespace Ecjia\App\Theme\ThemeFramework\Foundation;
 
 use Ecjia\App\Theme\ThemeFramework\ThemeFrameworkAbstract;
+use RC_Hook;
 
 /**
  *
@@ -61,8 +62,8 @@ class ShortcodeManager extends ThemeFrameworkAbstract
     public function __construct( $options )
     {
 
-        $this->options = apply_filters( 'cs_shortcode_options', $options );
-        $this->exclude_post_types = apply_filters( 'cs_shortcode_exclude', $this->exclude_post_types );
+        $this->options = RC_Hook::apply_filters( 'cs_shortcode_options', $options );
+        $this->exclude_post_types = RC_Hook::apply_filters( 'cs_shortcode_exclude', $this->exclude_post_types );
 
         if( ! empty( $this->options ) ) {
 

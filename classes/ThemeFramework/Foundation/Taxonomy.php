@@ -9,6 +9,7 @@
 namespace Ecjia\App\Theme\ThemeFramework\Foundation;
 
 use Ecjia\App\Theme\ThemeFramework\ThemeFrameworkAbstract;
+use RC_Hook;
 
 /**
  *
@@ -43,7 +44,7 @@ class Taxonomy extends ThemeFrameworkAbstract
     public function __construct( $options )
     {
 
-        $this->options = apply_filters( 'cs_taxonomy_options', $options );
+        $this->options = RC_Hook::apply_filters( 'cs_taxonomy_options', $options );
 
         if( ! empty( $this->options ) ) {
             $this->addAction( 'admin_init', 'add_taxonomy_fields' );
@@ -159,14 +160,14 @@ class Taxonomy extends ThemeFrameworkAbstract
                                     $sanitize_type = $field['type'];
                                 }
 
-                                if( has_filter( 'cs_sanitize_'. $sanitize_type ) ) {
+                                if( RC_Hook::has_filter( 'cs_sanitize_'. $sanitize_type ) ) {
                                     $request[$field['id']] = apply_filters( 'cs_sanitize_' . $sanitize_type, $field_value, $field, $request_value['fields'] );
                                 }
 
                                 // validate options
-                                if ( isset( $field['validate'] ) && has_filter( 'cs_validate_'. $field['validate'] ) ) {
+                                if ( isset( $field['validate'] ) && RC_Hook::has_filter( 'cs_validate_'. $field['validate'] ) ) {
 
-                                    $validate = apply_filters( 'cs_validate_' . $field['validate'], $field_value, $field, $request_value['fields'] );
+                                    $validate = RC_Hook::apply_filters( 'cs_validate_' . $field['validate'], $field_value, $field, $request_value['fields'] );
 
                                     if( ! empty( $validate ) ) {
 
@@ -186,7 +187,7 @@ class Taxonomy extends ThemeFrameworkAbstract
 
                     }
 
-                    $request = apply_filters( 'cs_save_taxonomy', $request, $request_key, $term_id );
+                    $request = RC_Hook::apply_filters( 'cs_save_taxonomy', $request, $request_key, $term_id );
 
                     if( empty( $request ) ) {
 

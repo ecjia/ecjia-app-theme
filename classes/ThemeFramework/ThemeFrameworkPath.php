@@ -8,6 +8,7 @@
 
 namespace Ecjia\App\Theme\ThemeFramework;
 
+use RC_Hook;
 
 class ThemeFrameworkPath
 {
@@ -32,7 +33,7 @@ class ThemeFrameworkPath
         $dir            = $directory . $basename;
         $uri            = $directory_uri . $basename;
 
-        return apply_filters( 'cs_get_path_locate', array(
+        return RC_Hook::apply_filters( 'cs_get_path_locate', array(
             'basename' => wp_normalize_path( $basename ),
             'dir'      => wp_normalize_path( $dir ),
             'uri'      => $uri
@@ -53,7 +54,7 @@ class ThemeFrameworkPath
     {
 
         $located      = '';
-        $override     = apply_filters( 'cs_framework_override', 'cs-framework-override' );
+        $override     = RC_Hook::apply_filters( 'cs_framework_override', 'cs-framework-override' );
         $dir_plugin   = WP_PLUGIN_DIR;
         $dir_theme    = get_template_directory();
         $dir_child    = get_stylesheet_directory();
@@ -97,7 +98,7 @@ class ThemeFrameworkPath
             $located =  $plugin_normal_override;
         }
 
-        $located = apply_filters( 'cs_locate_template', $located, $template_name );
+        $located = RC_Hook::apply_filters( 'cs_locate_template', $located, $template_name );
 
         if ( ! empty( $located ) ) {
             load_template( $located, true );
@@ -118,7 +119,7 @@ class ThemeFrameworkPath
     public static function cs_get_option( $option_name = '', $default = '' )
     {
 
-        $options = apply_filters( 'cs_get_option', get_option( CS_OPTION ), $option_name, $default );
+        $options = RC_Hook::apply_filters( 'cs_get_option', get_option( CS_OPTION ), $option_name, $default );
 
         if( ! empty( $option_name ) && ! empty( $options[$option_name] ) ) {
             return $options[$option_name];
@@ -139,7 +140,7 @@ class ThemeFrameworkPath
     public static function cs_set_option( $option_name = '', $new_value = '' )
     {
 
-        $options = apply_filters( 'cs_set_option', get_option( CS_OPTION ), $option_name, $new_value );
+        $options = RC_Hook::apply_filters( 'cs_set_option', get_option( CS_OPTION ), $option_name, $new_value );
 
         if( ! empty( $option_name ) ) {
             $options[$option_name] = $new_value;
@@ -223,7 +224,7 @@ class ThemeFrameworkPath
     public static function cs_get_customize_option( $option_name = '', $default = '' )
     {
 
-        $options = apply_filters( 'cs_get_customize_option', get_option( CS_CUSTOMIZE ), $option_name, $default );
+        $options = RC_Hook::apply_filters( 'cs_get_customize_option', get_option( CS_CUSTOMIZE ), $option_name, $default );
 
         if( ! empty( $option_name ) && ! empty( $options[$option_name] ) ) {
             return $options[$option_name];
@@ -244,7 +245,7 @@ class ThemeFrameworkPath
     public static function cs_set_customize_option( $option_name = '', $new_value = '' )
     {
 
-        $options = apply_filters( 'cs_set_customize_option', get_option( CS_CUSTOMIZE ), $option_name, $new_value );
+        $options = RC_Hook::apply_filters( 'cs_set_customize_option', get_option( CS_CUSTOMIZE ), $option_name, $new_value );
 
         if( ! empty( $option_name ) ) {
             $options[$option_name] = $new_value;
@@ -369,7 +370,7 @@ class ThemeFrameworkPath
 
         }
 
-        $multilang = apply_filters( 'cs_language_defaults', $multilang );
+        $multilang = RC_Hook::apply_filters( 'cs_language_defaults', $multilang );
 
         return ( ! empty( $multilang ) ) ? $multilang : false;
 
@@ -389,7 +390,7 @@ class ThemeFrameworkPath
         global $locale, $wp_local_package;
 
         if ( isset( $locale ) ) {
-            return apply_filters( 'locale', $locale );
+            return RC_Hook::apply_filters( 'locale', $locale );
         }
 
         if ( isset( $wp_local_package ) ) {
@@ -424,7 +425,7 @@ class ThemeFrameworkPath
             $locale = 'en_US';
         }
 
-        return apply_filters( 'locale', $locale );
+        return RC_Hook::apply_filters( 'locale', $locale );
 
     }
 

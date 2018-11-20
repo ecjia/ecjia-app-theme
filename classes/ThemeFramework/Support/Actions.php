@@ -2,6 +2,8 @@
 
 namespace Ecjia\App\Theme\ThemeFramework\Support;
 
+use RC_Hook;
+
 class Actions
 {
     /**
@@ -15,7 +17,7 @@ class Actions
     public static function cs_get_icons()
     {
 
-        do_action( 'cs_add_icons_before' );
+        RC_Hook::do_action( 'cs_add_icons_before' );
 
         $jsons = glob( CS_DIR . '/fields/icon/*.json' );
 
@@ -41,8 +43,8 @@ class Actions
 
         }
 
-        do_action( 'cs_add_icons' );
-        do_action( 'cs_add_icons_after' );
+        RC_Hook::do_action( 'cs_add_icons' );
+        RC_Hook::do_action( 'cs_add_icons_after' );
 
         die();
     }
@@ -87,9 +89,9 @@ class Actions
     }
 }
 
-add_action( 'wp_ajax_cs-get-icons', 'cs_get_icons' );
-add_action( 'wp_ajax_cs-export-options', 'cs_export_options' );
-add_action( 'admin_footer', 'cs_set_icons' );
-add_action( 'customize_controls_print_footer_scripts', 'cs_set_icons' );
+RC_Hook::add_action( 'wp_ajax_cs-get-icons', 'cs_get_icons' );
+RC_Hook::add_action( 'wp_ajax_cs-export-options', 'cs_export_options' );
+RC_Hook::add_action( 'admin_footer', 'cs_set_icons' );
+RC_Hook::add_action( 'customize_controls_print_footer_scripts', 'cs_set_icons' );
 
 

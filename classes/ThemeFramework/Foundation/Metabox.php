@@ -9,6 +9,7 @@
 namespace Ecjia\App\Theme\ThemeFramework\Foundation;
 
 use Ecjia\App\Theme\ThemeFramework\ThemeFrameworkAbstract;
+use RC_Hook;
 
 /**
  *
@@ -43,7 +44,7 @@ class Metabox extends ThemeFrameworkAbstract
     public function __construct( $options )
     {
 
-        $this->options = apply_filters( 'cs_metabox_options', $options );
+        $this->options = RC_Hook::apply_filters( 'cs_metabox_options', $options );
 
         if( ! empty( $this->options ) ) {
             $this->addAction( 'add_meta_boxes', 'add_meta_box' );
@@ -227,7 +228,7 @@ class Metabox extends ThemeFrameworkAbstract
 
                     }
 
-                    $request = apply_filters( 'cs_save_post', $request, $request_key, $post );
+                    $request = RC_Hook::apply_filters( 'cs_save_post', $request, $request_key, $post );
 
                     if ( empty( $request ) ) {
 

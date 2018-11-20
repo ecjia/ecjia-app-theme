@@ -9,6 +9,7 @@
 namespace Ecjia\App\Theme\ThemeFramework\Foundation;
 
 use Ecjia\App\Theme\ThemeFramework\ThemeFrameworkAbstract;
+use RC_Hook;
 
 /**
  *

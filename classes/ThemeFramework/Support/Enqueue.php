@@ -2,6 +2,8 @@
 
 namespace Ecjia\App\Theme\ThemeFramework\Support;
 
+use RC_Hook;
+
 class Enqueue
 {
 
@@ -45,5 +47,5 @@ class Enqueue
 
 }
 
-add_action( 'admin_enqueue_scripts', 'cs_admin_enqueue_scripts' );
+RC_Hook::add_action( 'admin_enqueue_scripts', 'cs_admin_enqueue_scripts' );
 
