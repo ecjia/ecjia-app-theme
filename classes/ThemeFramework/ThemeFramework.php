@@ -108,11 +108,11 @@ class ThemeFramework extends ThemeFrameworkAbstract
 
         foreach ( $this->options as $key => $value ) {
 
-            if( isset( $value['sections'] ) ) {
+            if ( isset( $value['sections'] ) ) {
 
                 foreach ( $value['sections'] as $section ) {
 
-                    if( isset( $section['fields'] ) ) {
+                    if ( isset( $section['fields'] ) ) {
                         $sections[] = $section;
                     }
 
@@ -120,7 +120,7 @@ class ThemeFramework extends ThemeFrameworkAbstract
 
             } else {
 
-                if( isset( $value['fields'] ) ) {
+                if ( isset( $value['fields'] ) ) {
                     $sections[] = $value;
                 }
 
@@ -138,7 +138,7 @@ class ThemeFramework extends ThemeFrameworkAbstract
 
         $defaults = array();
 
-        foreach( $this->sections as $section ) {
+        foreach ( $this->sections as $section ) {
 
             register_setting( $this->unique .'_group', $this->unique, array( &$this,'validate_save' ) );
 
