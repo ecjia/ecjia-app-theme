@@ -18,6 +18,8 @@ class ThemeServiceProvider extends  AppParentServiceProvider
     {
         $this->registerThemeOption();
 
+        $this->registerThemeFramework();
+
         $this->loadAlias();
     }
 

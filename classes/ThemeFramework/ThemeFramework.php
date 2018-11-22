@@ -8,8 +8,14 @@
 
 namespace Ecjia\App\Theme\ThemeFramework;
 
+use Ecjia\App\Theme\ThemeFramework\Foundation\AdminPanel;
+use Ecjia\App\Theme\ThemeFramework\Foundation\Metabox;
+use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
+use Ecjia\App\Theme\ThemeFramework\Foundation\ShortcodeManager;
+use Ecjia\App\Theme\ThemeFramework\Foundation\Taxonomy;
 use RC_Hook;
 use RC_Format;
+use RC_Theme;
 use ecjia_theme_option;
 
 class ThemeFramework
@@ -40,8 +46,8 @@ class ThemeFramework
         $dirname        = RC_Format::normalize_path( dirname( __FILE__ ) );
         $plugin_dir     = RC_Format::normalize_path( WP_PLUGIN_DIR );
         $located_plugin = ( preg_match( '#'. $plugin_dir .'#', $dirname ) ) ? true : false;
-        $directory      = ( $located_plugin ) ? $plugin_dir : get_template_directory();
-        $directory_uri  = ( $located_plugin ) ? WP_PLUGIN_URL : get_template_directory_uri();
+        $directory      = ( $located_plugin ) ? $plugin_dir : RC_Theme::get_template_directory();
+        $directory_uri  = ( $located_plugin ) ? WP_PLUGIN_URL : RC_Theme::get_template_directory_uri();
         $basename       = str_replace( RC_Format::normalize_path( $directory ), '', $dirname );
         $dir            = $directory . $basename;
         $uri            = $directory_uri . $basename;
@@ -69,8 +75,8 @@ class ThemeFramework
         $located      = '';
         $override     = RC_Hook::apply_filters( 'cs_framework_override', 'framework-override' );
         $dir_plugin   = WP_PLUGIN_DIR;
-        $dir_theme    = get_template_directory();
-        $dir_child    = get_stylesheet_directory();
+        $dir_theme    = RC_Theme::get_template_directory();
+        $dir_child    = RC_Theme::get_stylesheet_directory();
         $dir_override = '/'. $override .'/'. $template_name;
         $dir_template = CS_BASENAME .'/'. $template_name;
 
@@ -310,6 +316,41 @@ class ThemeFramework
 
         return RC_Hook::apply_filters( 'locale', $locale );
 
+    }
+
+
+    public function createAdminPanelInstance($settings = array(), $options = array())
+    {
+        if (empty($settings)) {
+            $settings = config('app-theme::settings');
+        }
+
+        if (empty($options)) {
+            $options = config('app-theme::options');
+        }
+
+        return AdminPanel::instance($settings, $options);
+    }
+
+
+    public function createMetaboxInstance($settings = array(), $options = array())
+    {
+        return Metabox::instance($settings, $options);
+    }
+
+    public function createOptionsInstance($settings = array(), $options = array())
+    {
+        return Options::instance($settings, $options);
+    }
+
+    public function createShortcodeManagerInstance($settings = array(), $options = array())
+    {
+        return ShortcodeManager::instance($settings, $options);
+    }
+
+    public function createTaxonomyInstance($settings = array(), $options = array())
+    {
+        return Taxonomy::instance($settings, $options);
     }
 
 }

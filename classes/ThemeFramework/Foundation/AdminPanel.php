@@ -6,8 +6,9 @@
  * Time: 09:41
  */
 
-namespace Ecjia\App\Theme\ThemeFramework;
+namespace Ecjia\App\Theme\ThemeFramework\Foundation;
 
+use Ecjia\App\Theme\ThemeFramework\ThemeFrameworkAbstract;
 use RC_Hook;
 use ecjia_theme_option;
 
@@ -19,7 +20,7 @@ use ecjia_theme_option;
  * @version 1.0.0
  *
  */
-class Foundation extends ThemeFrameworkAbstract
+class AdminPanel extends ThemeFrameworkAbstract
 {
 
     /**

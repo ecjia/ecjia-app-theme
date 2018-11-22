@@ -223,11 +223,11 @@ class Taxonomy extends ThemeFrameworkAbstract
 
         $taxonomy = cs_get_var( 'taxonomy' );
 
-        if( ! empty( $taxonomy ) ) {
+        if ( ! empty( $taxonomy ) ) {
 
             foreach ( $this->options as $request_value ) {
 
-                if( $taxonomy == $request_value['taxonomy'] ) {
+                if ( $taxonomy == $request_value['taxonomy'] ) {
 
                     $request_key = $request_value['id'];
 
