@@ -22,6 +22,12 @@ class admin_option extends ecjia_admin
     public function init()
     {
 
+
+        $this->assign('ur_here',   __('主题选项', 'theme'));
+
+
+
+        $this->display('template_option.dwt');
     }
 
 
