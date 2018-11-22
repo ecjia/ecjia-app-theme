@@ -34,7 +34,7 @@ class ThemeFramework
      * @version 1.0.0
      *
      */
-    public function cs_get_path_locate()
+    public function get_path_locate()
     {
 
         $dirname        = RC_Format::normalize_path( dirname( __FILE__ ) );
@@ -63,11 +63,11 @@ class ThemeFramework
      * @version 1.0.0
      *
      */
-    public function cs_locate_template( $template_name )
+    public function locate_template( $template_name )
     {
 
         $located      = '';
-        $override     = RC_Hook::apply_filters( 'cs_framework_override', 'cs-framework-override' );
+        $override     = RC_Hook::apply_filters( 'cs_framework_override', 'framework-override' );
         $dir_plugin   = WP_PLUGIN_DIR;
         $dir_theme    = get_template_directory();
         $dir_child    = get_stylesheet_directory();
@@ -269,7 +269,7 @@ class ThemeFramework
      * @version 1.0.0
      *
      */
-    public function cs_get_multilang_value( $value, $default = null )
+    public function get_multilang_value( $value, $default = null )
     {
 
         $languages = $this->language_defaults();
