@@ -44,47 +44,140 @@
 //
 //  ---------------------------------------------------------------------------------
 //
-namespace Ecjia\App\Theme\ThemeOption\Models;
+namespace Ecjia\App\Theme\ThemeOption\Repositories;
 
-use Royalcms\Component\Database\Eloquent\Model;
+use Royalcms\Component\Repository\Repositories\AbstractRepository;
 
-class TemplateOptionsModel extends Model
+class TemplateOptionsRepository extends AbstractRepository
 {
 
-    protected $table = 'template_options';
-    
-    protected $primaryKey = 'option_id';
-    
-    /**
-     * 可以被批量赋值的属性。
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'option_name',
-        'option_value',
-        'site',
-        'template',
-        'group',
-    ];
-    
-    /**
-     * 该模型是否被自动维护时间戳
-     *
-     * @var bool
-     */
-    public $timestamps = false;
+	protected $model = 'Ecjia\App\Theme\ThemeOption\Models\TemplateOptionsModel';
+	
+	/**
+	 * 站点名称
+	 * @var string
+	 */
+	protected $site = null;
 
+    /**
+     * 模板名称
+     * @var null
+     */
+	protected $template = null;
+	
+	protected $orderBy = ['sort_order' => 'asc', 'position_id' => 'desc'];
 
-    public function xx()
+	public function __construct()
     {
+        parent::__construct();
 
+        if (defined('RC_SITE') && constant('RC_SITE')) {
+            $this->site = RC_SITE;
+        }
 
-
+        $this->template = \RC_Theme::get_template();
 
     }
 
-    
-}
+    /**
+     * 获取选项值
+     *
+     * @param $name
+     */
+    public function getOption($name)
+    {
+        $where = [
+            'site'          => $this->site,
+            'template'      => $this->template,
+            'option_name'   => $this->template,
+        ];
+        $option = $this->findWhere($where, ['option_name', 'option_value', 'group']);
 
-// end
+        return $option;
+    }
+
+
+    public function getAllGroups($city, array $orderBy)
+	{
+		if (!empty($orderBy)) {
+			$this->orderBy = $orderBy;
+		}
+		
+		$where = [
+    		'type'     => $this->type,
+    		'city_id'  => $city,
+		];
+		$group1 = $this->findWhere($where, ['position_id', 'position_name', 'position_code', 'position_desc', 'ad_width', 'ad_height', 'sort_order']);
+	
+		$where = [
+		    'type'     => $this->type,
+		    'city_id'  => null,
+		];
+		$group2 = $this->findWhere($where, ['position_id', 'position_name', 'position_code', 'position_desc', 'ad_width', 'ad_height', 'sort_order']);
+		
+		$group = $group1->merge($group2);
+		
+		return $group->toArray();
+	}
+	
+	
+	public function getAllCitys()
+	{
+		$city = $this->getModel()->where('type', $this->type)->whereNotNull('city_id')->select(RC_DB::raw('distinct city_id, city_name'))->orderBy('city_id', 'asc')->get();
+	
+		return $city->toArray();
+	}
+	
+	
+	/**
+	 * Find data by multiple fields
+	 *
+	 * @param array $where
+	 * @param array $columns
+	 *
+	 * @return mixed
+	 */
+	public function findWhereByFirst(array $where, $columns = ['*'])
+	{
+		$this->newQuery();
+	
+		foreach ($where as $field => $value) {
+			if (is_array($value)) {
+				list($field, $condition, $val) = $value;
+				$this->query->where($field, $condition, $val);
+			}
+			else {
+				$this->query->where($field, '=', $value);
+			}
+		}
+	
+		return $this->query->first($columns);
+	}	
+	
+	/**
+	 * Retrieve all data of repository, paginated
+	 *
+	 * @param array $where
+	 * @param null  $limit
+	 * @param array $columns
+	 *
+	 * @return \Royalcms\Component\Pagination\Paginator
+	 */
+	public function wherePaginate(array $where, $limit = null, $columns = ['*'])
+	{
+	    $this->newQuery();
+	
+	    foreach ($where as $field => $value) {
+	        if (is_array($value)) {
+	            list($field, $condition, $val) = $value;
+	            $this->query->where($field, $condition, $val);
+	        }
+	        else {
+	            $this->query->where($field, '=', $value);
+	        }
+	    }
+	
+	    return $this->query->paginate($limit, $columns);
+	}
+	
+}
