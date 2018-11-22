@@ -46,7 +46,7 @@
 //
 namespace Ecjia\App\Theme\ThemeOption\Models;
 
-use Royalcms\Component\Database\Eloquent\Model;
+use Ecjia\System\Frameworks\Model\Model;
 
 class TemplateOptionsModel extends Model
 {
@@ -74,15 +74,6 @@ class TemplateOptionsModel extends Model
      * @var bool
      */
     public $timestamps = false;
-
-
-    public function xx()
-    {
-
-
-
-
-    }
 
     
 }

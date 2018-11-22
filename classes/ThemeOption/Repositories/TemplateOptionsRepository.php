@@ -65,7 +65,7 @@ class TemplateOptionsRepository extends AbstractRepository
      */
 	protected $template = null;
 	
-	protected $orderBy = ['sort_order' => 'asc', 'position_id' => 'desc'];
+	protected $orderBy = ['option_id' => 'asc'];
 
 	public function __construct()
     {
@@ -73,6 +73,8 @@ class TemplateOptionsRepository extends AbstractRepository
 
         if (defined('RC_SITE') && constant('RC_SITE')) {
             $this->site = RC_SITE;
+        } else {
+            $this->site = '';
         }
 
         $this->template = \RC_Theme::get_template();
@@ -96,36 +98,69 @@ class TemplateOptionsRepository extends AbstractRepository
         return $option;
     }
 
+    /**
+     * 更新选项值
+     *
+     * @param $name
+     * @param $value
+     */
+    public function updateOption($name, $value)
+    {
+        $result = $this->getModel()->where('site', $this->site)
+            ->where('template', $this->template)
+            ->where('option_name', $name)
+            ->update(['option_value' => $value]);
 
-    public function getAllGroups($city, array $orderBy)
+        return $result;
+    }
+
+    /**
+     * 添加选项值
+     *
+     * @param $name
+     * @param $value
+     */
+    public function addOption($name, $value)
+    {
+        $result = $this->getModel()->insertOnDuplicateKey([
+            'site' => $this->site,
+            'template' => $this->template,
+            'option_name' => $name,
+            'option_value' => $value,
+        ], [
+            'option_name' => $name,
+            'option_value' => $value,
+        ]);
+
+        return $result;
+    }
+
+    /**
+     * 删除一个选项
+     *
+     * @param $name
+     * @return mixed
+     */
+    public function deleteOption($name)
+    {
+        $result = $this->getModel()
+            ->where('site', $this->site)
+            ->where('template', $this->template)
+            ->where('option_name', $name)
+            ->delete();
+
+        return $result;
+    }
+	
+	
+	public function getAllOptions()
 	{
-		if (!empty($orderBy)) {
-			$this->orderBy = $orderBy;
-		}
-		
-		$where = [
-    		'type'     => $this->type,
-    		'city_id'  => $city,
-		];
-		$group1 = $this->findWhere($where, ['position_id', 'position_name', 'position_code', 'position_desc', 'ad_width', 'ad_height', 'sort_order']);
-	
-		$where = [
-		    'type'     => $this->type,
-		    'city_id'  => null,
-		];
-		$group2 = $this->findWhere($where, ['position_id', 'position_name', 'position_code', 'position_desc', 'ad_width', 'ad_height', 'sort_order']);
-		
-		$group = $group1->merge($group2);
-		
-		return $group->toArray();
-	}
-	
-	
-	public function getAllCitys()
-	{
-		$city = $this->getModel()->where('type', $this->type)->whereNotNull('city_id')->select(RC_DB::raw('distinct city_id, city_name'))->orderBy('city_id', 'asc')->get();
-	
-		return $city->toArray();
+		$options = $this->getModel()->where('site', $this->site)
+            ->where('template', $this->template)
+            ->select('option_name', 'option_value')
+            ->orderBy('option_id', 'asc')->get();
+
+		return $options;
 	}
 	
 	
