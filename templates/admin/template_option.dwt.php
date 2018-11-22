@@ -8,7 +8,7 @@
 <!-- {/block} -->
 
 <!-- {block name="admin_shop_config_nav"} -->
-
+<!-- {ecjia:hook id=admin_theme_option_nav arg=$current_code} -->
 <!-- {/block} -->
 
 <!-- {block name="admin_config_form"} -->
