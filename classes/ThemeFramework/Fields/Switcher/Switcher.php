@@ -1,6 +1,6 @@
 <?php
 
-namespace Ecjia\App\Theme\ThemeFramework\Fields\Subheading;
+namespace Ecjia\App\Theme\ThemeFramework\Fields\Switcher;
 
 use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
 

@@ -3,6 +3,7 @@
 namespace Ecjia\App\Theme\ThemeFramework\Fields\Group;
 
 use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
+use Ecjia\App\Theme\ThemeFramework\Support\Helpers;
 
 /**
  *
@@ -46,7 +47,7 @@ class Group extends Options
             $field['sub']   = true;
             $unique         = $this->unique .'[_nonce]['. $this->field['id'] .']['. $last_id .']';
             $field_default  = ( isset( $field['default'] ) ) ? $field['default'] : '';
-            echo cs_add_element( $field, $field_default, $unique );
+            echo Helpers::cs_add_element( $field, $field_default, $unique );
         }
         echo '<div class="cs-element cs-text-right"><a href="#" class="button cs-warning-primary cs-remove-group">'. __( 'Remove', 'cs-framework' ) .'</a></div>';
         echo '</div>';
@@ -77,7 +78,7 @@ class Group extends Options
                     $field['sub'] = true;
                     $unique = $this->unique . '[' . $this->field['id'] . ']['.$key.']';
                     $value  = ( isset( $field['id'] ) && isset( $this->value[$key][$field['id']] ) ) ? $this->value[$key][$field['id']] : '';
-                    echo cs_add_element( $field, $value, $unique );
+                    echo Helpers::cs_add_element( $field, $value, $unique );
                 }
 
                 echo '<div class="cs-element cs-text-right"><a href="#" class="button cs-warning-primary cs-remove-group">'. __( 'Remove', 'cs-framework' ) .'</a></div>';

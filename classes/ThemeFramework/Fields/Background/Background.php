@@ -3,6 +3,7 @@
 namespace Ecjia\App\Theme\ThemeFramework\Fields\Background;
 
 use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
+use Ecjia\App\Theme\ThemeFramework\Support\Helpers;
 
 /**
  *
@@ -34,7 +35,7 @@ class Background extends Options
             'color'       => '',
         );
 
-        $this->value  = wp_parse_args( $this->element_value(), $value_defaults );
+        $this->value  = rc_parse_args( $this->element_value(), $value_defaults );
 
         if ( isset( $this->field['settings'] ) ) {
             extract( $this->field['settings'] );
@@ -52,7 +53,7 @@ class Background extends Options
 
         // background attributes
         echo '<fieldset>';
-        echo cs_add_element( array(
+        echo Helpers::cs_add_element( array(
             'pseudo'          => true,
             'type'            => 'select',
             'name'            => $this->element_name( '[repeat]' ),
@@ -68,7 +69,7 @@ class Background extends Options
             ),
             'value'           => $this->value['repeat']
         ) );
-        echo cs_add_element( array(
+        echo Helpers::cs_add_element( array(
             'pseudo'          => true,
             'type'            => 'select',
             'name'            => $this->element_name( '[position]' ),
@@ -88,7 +89,7 @@ class Background extends Options
             ),
             'value'           => $this->value['position']
         ) );
-        echo cs_add_element( array(
+        echo Helpers::cs_add_element( array(
             'pseudo'          => true,
             'type'            => 'select',
             'name'            => $this->element_name( '[attachment]' ),
@@ -101,7 +102,7 @@ class Background extends Options
             ),
             'value'           => $this->value['attachment']
         ) );
-        echo cs_add_element( array(
+        echo Helpers::cs_add_element( array(
             'pseudo'          => true,
             'type'            => 'select',
             'name'            => $this->element_name( '[size]' ),
@@ -117,7 +118,7 @@ class Background extends Options
             ),
             'value'           => $this->value['size']
         ) );
-        echo cs_add_element( array(
+        echo Helpers::cs_add_element( array(
             'pseudo'          => true,
             'id'              => $this->field['id'].'_color',
             'type'            => 'color_picker',

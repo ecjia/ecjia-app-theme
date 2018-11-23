@@ -208,17 +208,7 @@ class AdminPanel extends ThemeFrameworkAbstract
                 echo '</h3>'.PHP_EOL;
             echo '</div>'.PHP_EOL;
 
-        echo '<div class="control-group formSep">';
-        echo '<label class="control-label">App Key：</label>';
-        echo '<div class="controls">';
-        echo '<input type="text" class="span7" name="app_key" value="{$printer_key}"/>';
-        echo '<span class="input-must"><span class="require-field">*</span></span>';
-        echo '</div>';
-        echo '</div>';
-
-        $this->doSettingsFields($section);
-
-
+            $this->doSettingsFields($section);
 
             echo '<div class="control-group">'.PHP_EOL;
                 echo '<div class="controls">'.PHP_EOL;
@@ -238,8 +228,6 @@ class AdminPanel extends ThemeFrameworkAbstract
         $page = $section['name'] .'_section_group';
 
         ecjia_theme_setting::do_settings_sections($page);
-
-//        dd(ecjia_theme_setting::get_registered_settings());
     }
 
     /**
@@ -258,7 +246,7 @@ class AdminPanel extends ThemeFrameworkAbstract
 
             foreach ( $section['fields'] as $field_key => $field ) {
 
-                ecjia_theme_setting::add_settings_field( $field_key .'_field', '', array( &$this, 'field_callback' ), $section['name'] .'_section_group', $section['name'] .'_section', $field );
+                ecjia_theme_setting::add_settings_field( $field_key .'_field', '', array( &$this, 'fieldCallback' ), $section['name'] .'_section_group', $section['name'] .'_section', $field );
 
                 // set default option if isset
                 if ( isset( $field['default'] ) ) {
@@ -376,11 +364,15 @@ class AdminPanel extends ThemeFrameworkAbstract
         return $request;
     }
 
-    // field callback classes
-    public function field_callback( $field )
+    /**
+     * field callback classes
+     *
+     * @param $field
+     */
+    public function fieldCallback( $field )
     {
-        $value = ( isset( $field['id'] ) && isset( $this->get_option[$field['id']] ) ) ? $this->get_option[$field['id']] : '';
-        echo Helpers::cs_add_element( $field, $value, $this->unique );
+        $value = ( isset( $field['id'] ) && isset( $this->theme_options[$field['id']] ) ) ? $this->theme_options[$field['id']] : '';
+        echo royalcms('ecjia.theme.framework')->getOptionField()->addElement( $field, $value, $this->unique );
     }
 
     public function add_settings_error( $message, $type = 'error', $id = 'global' )

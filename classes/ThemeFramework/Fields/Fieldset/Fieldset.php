@@ -3,6 +3,7 @@
 namespace Ecjia\App\Theme\ThemeFramework\Fields\Fieldset;
 
 use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
+use Ecjia\App\Theme\ThemeFramework\Support\Helpers;
 
 
 /**
@@ -35,9 +36,9 @@ class Fieldset extends Options
           $unique_id   = $this->unique .'['. $this->field['id'] .']';
 
           if ( ! empty( $this->field['un_array'] ) ) {
-              echo cs_add_element( $field, cs_get_option( $field_id ), $this->unique );
+              echo Helpers::cs_add_element( $field, cs_get_option( $field_id ), $this->unique );
           } else {
-              echo cs_add_element( $field, $field_value, $unique_id );
+              echo Helpers::cs_add_element( $field, $field_value, $unique_id );
           }
 
         }

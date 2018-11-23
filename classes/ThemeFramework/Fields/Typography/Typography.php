@@ -56,7 +56,7 @@ class Typography extends Options
             'Times New Roman'
         ));
 
-        $value         = wp_parse_args( $this->element_value(), $defaults_value );
+        $value         = rc_parse_args( $this->element_value(), $defaults_value );
         $family_value  = $value['family'];
         $variant_value = $value['variant'];
         $is_variant    = ( isset( $this->field['variant'] ) && $this->field['variant'] === false ) ? false : true;

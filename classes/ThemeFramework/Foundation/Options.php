@@ -99,7 +99,7 @@ class Options extends ThemeFrameworkAbstract
             $el_attributes  = ( empty( $el_attributes ) && isset( $element_id ) ) ? array('data-'. $sub_elemenet .'depend-id' => $element_id ) : $el_attributes;
         }
 
-        $attributes = wp_parse_args( $attributes, $el_attributes );
+        $attributes = rc_parse_args( $attributes, $el_attributes );
 
         $atts = '';
 
@@ -270,7 +270,7 @@ class Options extends ThemeFrameworkAbstract
 
                 $pages = get_pages( $query_args );
 
-                if ( ! is_wp_error( $pages ) && ! empty( $pages ) ) {
+                if ( ! is_ecjia_error( $pages ) && ! empty( $pages ) ) {
                     foreach ( $pages as $page ) {
                         $options[$page->ID] = $page->post_title;
                     }
@@ -283,7 +283,7 @@ class Options extends ThemeFrameworkAbstract
 
                 $posts = get_posts( $query_args );
 
-                if ( ! is_wp_error( $posts ) && ! empty( $posts ) ) {
+                if ( ! is_ecjia_error( $posts ) && ! empty( $posts ) ) {
                     foreach ( $posts as $post ) {
                         $options[$post->ID] = $post->post_title;
                     }
@@ -296,7 +296,7 @@ class Options extends ThemeFrameworkAbstract
 
                 $categories = get_categories( $query_args );
 
-                if ( ! is_wp_error( $categories ) && ! empty( $categories ) && ! isset( $categories['errors'] ) ) {
+                if ( ! is_ecjia_error( $categories ) && ! empty( $categories ) && ! isset( $categories['errors'] ) ) {
                     foreach ( $categories as $category ) {
                         $options[$category->term_id] = $category->name;
                     }
@@ -310,7 +310,7 @@ class Options extends ThemeFrameworkAbstract
                 $taxonomies = ( isset( $query_args['taxonomies'] ) ) ? $query_args['taxonomies'] : 'post_tag';
                 $tags = get_terms( $taxonomies, $query_args );
 
-                if ( ! is_wp_error( $tags ) && ! empty( $tags ) ) {
+                if ( ! is_ecjia_error( $tags ) && ! empty( $tags ) ) {
                     foreach ( $tags as $tag ) {
                         $options[$tag->term_id] = $tag->name;
                     }
@@ -353,7 +353,7 @@ class Options extends ThemeFrameworkAbstract
 
     public function element_multilang()
     {
-        return ( isset( $this->field['multilang'] ) ) ? cs_language_defaults() : false;
+        return ( isset( $this->field['multilang'] ) ) ? royalcms('ecjia.theme.framework')->language_defaults() : false;
     }
 
 }

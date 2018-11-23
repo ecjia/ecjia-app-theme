@@ -31,7 +31,7 @@ class Wysiwyg extends Options
         );
 
         $settings    = ( ! empty( $this->field['settings'] ) ) ? $this->field['settings'] : array();
-        $settings    = wp_parse_args( $settings, $defaults );
+        $settings    = rc_parse_args( $settings, $defaults );
 
         $field_id    = ( ! empty( $this->field['id'] ) ) ? $this->field['id'] : '';
         $field_value = $this->element_value();

@@ -23,6 +23,7 @@ class ThemeFramework
 
     protected $customize_options_key;
 
+    protected $option_field;
 
     public function __construct()
     {
@@ -36,8 +37,13 @@ class ThemeFramework
 
         $this->customize_options_key = '_cs_customize_options';
 
+        $this->option_field = new OptionField($this);
 
+    }
 
+    public function getOptionField()
+    {
+        return $this->option_field;
     }
 
     /**
