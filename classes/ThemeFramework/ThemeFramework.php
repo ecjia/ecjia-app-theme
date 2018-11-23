@@ -56,6 +56,16 @@ class ThemeFramework
         return $this->app_dir;
     }
 
+    public function getStaticsDir()
+    {
+        return $this->statics_dir;
+    }
+
+    public function getStaticsUrl()
+    {
+        return \RC_App::apps_url('', $this->statics_dir) . '/statics';
+    }
+
     /**
      *
      * Framework path finder

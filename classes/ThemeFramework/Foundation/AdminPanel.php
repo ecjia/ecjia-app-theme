@@ -8,10 +8,11 @@
 
 namespace Ecjia\App\Theme\ThemeFramework\Foundation;
 
-use Ecjia\App\Theme\ThemeFramework\Support\Helpers;
 use Ecjia\App\Theme\ThemeFramework\ThemeFrameworkAbstract;
 use RC_Hook;
 use RC_Uri;
+use RC_Style;
+use RC_Script;
 use ecjia_theme_option;
 use ecjia_theme_setting;
 
@@ -114,7 +115,7 @@ class AdminPanel extends ThemeFrameworkAbstract
             $this->addAction('admin_enqueue_scripts', 'admin_enqueue_scripts');
         }
 
-        
+        $this->admin_enqueue_scripts();
     }
 
 
@@ -226,6 +227,12 @@ class AdminPanel extends ThemeFrameworkAbstract
 
     }
 
+
+    protected function staticsPath($path)
+    {
+        return $this->getFramework()->getStaticsUrl() . $path;
+    }
+
     /**
      *
      * Framework admin enqueue style and scripts
@@ -237,32 +244,17 @@ class AdminPanel extends ThemeFrameworkAbstract
     public function admin_enqueue_scripts()
     {
 
-        dd(\RC_App::apps_url('statics/js/template.js', $this->getFramework()->getAppDir()));
-
-        // admin utilities
-        wp_enqueue_media();
-
-        // wp core styles
-        wp_enqueue_style( 'wp-color-picker' );
-        wp_enqueue_style( 'wp-jquery-ui-dialog' );
-
         // framework core styles
-        wp_enqueue_style( 'cs-framework', CS_URI .'/assets/css/cs-framework.css', array(), '1.0.0', 'all' );
-        wp_enqueue_style( 'font-awesome', CS_URI .'/assets/css/font-awesome.css', array(), '4.2.0', 'all' );
+        RC_Style::enqueue_style( 'cs-framework', $this->staticsPath('/theme-framework/css/cs-framework.css'), array(), '1.0.0', 'all' );
+        RC_Style::enqueue_style( 'font-awesome', $this->staticsPath('/theme-framework/css/font-awesome.css'), array(), '4.2.0', 'all' );
 
         if ( is_rtl() ) {
-            wp_enqueue_style( 'cs-framework-rtl', CS_URI .'/assets/css/cs-framework-rtl.css', array(), '1.0.0', 'all' );
+            RC_Style::enqueue_style( 'cs-framework-rtl', $this->staticsPath('/theme-framework/css/cs-framework-rtl.css'), array(), '1.0.0', 'all' );
         }
 
-        // wp core scripts
-        wp_enqueue_script( 'wp-color-picker' );
-        wp_enqueue_script( 'jquery-ui-dialog' );
-        wp_enqueue_script( 'jquery-ui-sortable' );
-        wp_enqueue_script( 'jquery-ui-accordion' );
-
         // framework core scripts
-        wp_enqueue_script( 'cs-plugins',    CS_URI .'/assets/js/cs-plugins.js',    array(), '1.0.0', true );
-        wp_enqueue_script( 'cs-framework',  CS_URI .'/assets/js/cs-framework.js',  array( 'cs-plugins' ), '1.0.0', true );
+        RC_Script::enqueue_script( 'cs-plugins',    $this->staticsPath('/theme-framework/js/cs-plugins.js'),    array(), '1.0.0', true );
+        RC_Script::enqueue_script( 'cs-framework',  $this->staticsPath('/theme-framework/js/cs-framework.js'),  array( 'cs-plugins' ), '1.0.0', true );
 
     }
 
