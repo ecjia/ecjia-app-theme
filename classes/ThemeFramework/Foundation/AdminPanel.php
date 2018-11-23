@@ -30,7 +30,7 @@ class AdminPanel extends ThemeFrameworkAbstract
      * @var string
      *
      */
-    public $unique = CS_OPTION;
+//    public $unique = CS_OPTION;
 
     /**
      *
@@ -66,7 +66,7 @@ class AdminPanel extends ThemeFrameworkAbstract
      * @var array
 *
 */
-    public $get_option = array();
+    public $theme_options = array();
 
     /**
      *
@@ -77,30 +77,6 @@ class AdminPanel extends ThemeFrameworkAbstract
      */
     private static $instance = null;
 
-    // run framework construct
-    public function __construct( $settings, $options )
-    {
-        // active modules
-        defined( 'CS_ACTIVE_FRAMEWORK' )  or  define( 'CS_ACTIVE_FRAMEWORK',  true );
-        defined( 'CS_ACTIVE_METABOX'   )  or  define( 'CS_ACTIVE_METABOX',    true );
-        defined( 'CS_ACTIVE_TAXONOMY'   ) or  define( 'CS_ACTIVE_TAXONOMY',   true );
-        defined( 'CS_ACTIVE_SHORTCODE' )  or  define( 'CS_ACTIVE_SHORTCODE',  true );
-        defined( 'CS_ACTIVE_CUSTOMIZE' )  or  define( 'CS_ACTIVE_CUSTOMIZE',  true );
-
-        $this->settings = RC_Hook::apply_filters( 'cs_framework_settings', $settings );
-        $this->options  = RC_Hook::apply_filters( 'cs_framework_options', $options );
-
-        if( ! empty( $this->options ) ) {
-
-            $this->sections   = $this->get_sections();
-            $this->get_option = ecjia_theme_option::load_alloptions();
-            $this->addAction( 'admin_init', 'settings_api' );
-            $this->addAction( 'admin_menu', 'admin_menu' );
-
-        }
-
-    }
-
     // instance
     public static function instance( $settings = array(), $options = array() )
     {
@@ -110,7 +86,30 @@ class AdminPanel extends ThemeFrameworkAbstract
         return self::$instance;
     }
 
-    // get sections
+
+    // run framework construct
+    public function __construct( $settings, $options )
+    {
+
+        $this->settings = RC_Hook::apply_filters( 'cs_framework_settings', $settings );
+        $this->options  = RC_Hook::apply_filters( 'cs_framework_options', $options );
+
+
+        if( ! empty( $this->options ) ) {
+
+            $this->sections   = $this->get_sections();
+            $this->theme_options = ecjia_theme_option::load_alloptions();
+
+        }
+
+    }
+
+
+    /**
+     * get sections
+     *
+     * @return array
+     */
     public function get_sections()
     {
 
@@ -333,29 +332,29 @@ class AdminPanel extends ThemeFrameworkAbstract
         return array( 'setting' => 'cs-errors', 'code' => $id, 'message' => $message, 'type' => $type );
     }
 
-    // adding option page
-    public function admin_menu()
-    {
-
-        $defaults_menu_args = array(
-            'menu_parent'     => '',
-            'menu_title'      => '',
-            'menu_type'       => '',
-            'menu_slug'       => '',
-            'menu_icon'       => '',
-            'menu_capability' => 'manage_options',
-            'menu_position'   => null,
-        );
-
-        $args = wp_parse_args( $this->settings, $defaults_menu_args );
-
-        if( $args['menu_type'] == 'submenu' ) {
-            call_user_func( 'add_'. $args['menu_type'] .'_page', $args['menu_parent'], $args['menu_title'], $args['menu_title'], $args['menu_capability'], $args['menu_slug'], array( &$this, 'admin_page' ) );
-        } else {
-            call_user_func( 'add_'. $args['menu_type'] .'_page', $args['menu_title'], $args['menu_title'], $args['menu_capability'], $args['menu_slug'], array( &$this, 'admin_page' ), $args['menu_icon'], $args['menu_position'] );
-        }
-
-    }
+//    // adding option page
+//    public function admin_menu()
+//    {
+//
+//        $defaults_menu_args = array(
+//            'menu_parent'     => '',
+//            'menu_title'      => '',
+//            'menu_type'       => '',
+//            'menu_slug'       => '',
+//            'menu_icon'       => '',
+//            'menu_capability' => 'manage_options',
+//            'menu_position'   => null,
+//        );
+//
+//        $args = rc_parse_args( $this->settings, $defaults_menu_args );
+//
+//        if( $args['menu_type'] == 'submenu' ) {
+//            call_user_func( 'add_'. $args['menu_type'] .'_page', $args['menu_parent'], $args['menu_title'], $args['menu_title'], $args['menu_capability'], $args['menu_slug'], array( &$this, 'admin_page' ) );
+//        } else {
+//            call_user_func( 'add_'. $args['menu_type'] .'_page', $args['menu_title'], $args['menu_title'], $args['menu_capability'], $args['menu_slug'], array( &$this, 'admin_page' ), $args['menu_icon'], $args['menu_position'] );
+//        }
+//
+//    }
 
     // option page html output
     public function admin_page()

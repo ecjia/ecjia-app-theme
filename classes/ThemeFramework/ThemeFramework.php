@@ -26,6 +26,14 @@ class ThemeFramework
 
     public function __construct()
     {
+        // active modules
+        defined( 'CS_ACTIVE_FRAMEWORK' )  or  define( 'CS_ACTIVE_FRAMEWORK',  true );
+        defined( 'CS_ACTIVE_METABOX'   )  or  define( 'CS_ACTIVE_METABOX',    true );
+        defined( 'CS_ACTIVE_TAXONOMY'   ) or  define( 'CS_ACTIVE_TAXONOMY',   true );
+        defined( 'CS_ACTIVE_SHORTCODE' )  or  define( 'CS_ACTIVE_SHORTCODE',  true );
+        defined( 'CS_ACTIVE_CUSTOMIZE' )  or  define( 'CS_ACTIVE_CUSTOMIZE',  true );
+
+
         $this->customize_options_key = '_cs_customize_options';
 
 
@@ -326,7 +334,7 @@ class ThemeFramework
         }
 
         if (empty($options)) {
-            $options = config('app-theme::options');
+            $options = config('app-theme::framework');
         }
 
         return AdminPanel::instance($settings, $options);
@@ -335,21 +343,53 @@ class ThemeFramework
 
     public function createMetaboxInstance($settings = array(), $options = array())
     {
+        if (empty($settings)) {
+            $settings = config('app-theme::settings');
+        }
+
+        if (empty($options)) {
+            $options = config('app-theme::metabox');
+        }
+
         return Metabox::instance($settings, $options);
     }
 
     public function createOptionsInstance($settings = array(), $options = array())
     {
+        if (empty($settings)) {
+            $settings = config('app-theme::settings');
+        }
+
+        if (empty($options)) {
+            $options = config('app-theme::options');
+        }
+
         return Options::instance($settings, $options);
     }
 
     public function createShortcodeManagerInstance($settings = array(), $options = array())
     {
+        if (empty($settings)) {
+            $settings = config('app-theme::settings');
+        }
+
+        if (empty($options)) {
+            $options = config('app-theme::shortcode');
+        }
+
         return ShortcodeManager::instance($settings, $options);
     }
 
     public function createTaxonomyInstance($settings = array(), $options = array())
     {
+        if (empty($settings)) {
+            $settings = config('app-theme::settings');
+        }
+
+        if (empty($options)) {
+            $options = config('app-theme::taxonomy');
+        }
+
         return Taxonomy::instance($settings, $options);
     }
 
