@@ -3,6 +3,8 @@
 namespace Ecjia\App\Theme;
 
 use Ecjia\App\Theme\ThemeOption\ThemeOption;
+use Ecjia\App\Theme\ThemeOption\ThemeSetting;
+use Ecjia\App\Theme\ThemeOption\ThemeTransient;
 use Ecjia\App\Theme\ThemeFramework\ThemeFramework;
 use Royalcms\Component\App\AppParentServiceProvider;
 
@@ -17,6 +19,10 @@ class ThemeServiceProvider extends  AppParentServiceProvider
     public function register()
     {
         $this->registerThemeOption();
+
+        $this->registerThemeSetting();
+
+        $this->registerThemeTransient();
 
         $this->registerThemeFramework();
 
@@ -34,6 +40,27 @@ class ThemeServiceProvider extends  AppParentServiceProvider
         });
     }
 
+    /**
+     * Register the theme setting
+     * @return \Ecjia\App\Theme\ThemeOption\ThemeOption
+     */
+    public function registerThemeSetting()
+    {
+        $this->royalcms->bindShared('ecjia.theme.setting', function($royalcms){
+            return new ThemeSetting();
+        });
+    }
+
+    /**
+     * Register the theme transient
+     * @return \Ecjia\App\Theme\ThemeOption\ThemeOption
+     */
+    public function registerThemeTransient()
+    {
+        $this->royalcms->bindShared('ecjia.theme.transient', function($royalcms){
+            return new ThemeTransient();
+        });
+    }
 
     /**
      * Register the theme framework
@@ -56,6 +83,8 @@ class ThemeServiceProvider extends  AppParentServiceProvider
         {
             $loader = \Royalcms\Component\Foundation\AliasLoader::getInstance();
             $loader->alias('ecjia_theme_option', 'Ecjia\App\Theme\Facades\EcjiaThemeOption');
+            $loader->alias('ecjia_theme_setting', 'Ecjia\App\Theme\Facades\EcjiaThemeSetting');
+            $loader->alias('ecjia_theme_transient', 'Ecjia\App\Theme\Facades\EcjiaThemeTransient');
             $loader->alias('ecjia_theme_framework', 'Ecjia\App\Theme\Facades\EcjiaThemeFramework');
         });
     }
