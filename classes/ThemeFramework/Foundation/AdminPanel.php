@@ -243,6 +243,10 @@ class AdminPanel extends ThemeFrameworkAbstract
      */
     public function admin_enqueue_scripts()
     {
+        $route = royalcms('default-router');
+        if (! $route->justCurrentRoute('theme/admin_option/init')) {
+            return ;
+        }
 
         // framework core styles
         RC_Style::enqueue_style( 'cs-framework', $this->staticsPath('/theme-framework/css/cs-framework.css'), array(), '1.0.0', 'all' );
