@@ -21,6 +21,29 @@ use RC_Hook;
  */
 abstract class ThemeFrameworkAbstract
 {
+    /**
+     * @var \Ecjia\App\Theme\ThemeFramework\ThemeFramework
+     */
+    protected $framework;
+
+    /**
+     * @param $framework \Ecjia\App\Theme\ThemeFramework\ThemeFramework
+     * @return $this
+     */
+    public function setFramework($framework)
+    {
+        $this->framework = $framework;
+
+        return $this;
+    }
+
+    /**
+     * @return \Ecjia\App\Theme\ThemeFramework\ThemeFramework
+     */
+    public function getFramework()
+    {
+        return $this->framework;
+    }
 
     public function addAction( $hook, $function_to_add, $priority = 30, $accepted_args = 1 )
     {

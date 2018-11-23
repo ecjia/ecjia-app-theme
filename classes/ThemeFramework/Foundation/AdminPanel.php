@@ -80,7 +80,12 @@ class AdminPanel extends ThemeFrameworkAbstract
      */
     private static $instance = null;
 
-    // instance
+    /**
+     * instance
+     * @param array $settings
+     * @param array $options
+     * @return AdminPanel|class
+     */
     public static function instance( $settings = array(), $options = array() )
     {
         if ( is_null( self::$instance ) && CS_ACTIVE_FRAMEWORK ) {
@@ -372,7 +377,7 @@ class AdminPanel extends ThemeFrameworkAbstract
     public function fieldCallback( $field )
     {
         $value = ( isset( $field['id'] ) && isset( $this->theme_options[$field['id']] ) ) ? $this->theme_options[$field['id']] : '';
-        echo royalcms('ecjia.theme.framework')->getOptionField()->addElement( $field, $value, $this->unique );
+        echo $this->getFramework()->getOptionField()->addElement( $field, $value, $this->unique );
     }
 
     public function add_settings_error( $message, $type = 'error', $id = 'global' )

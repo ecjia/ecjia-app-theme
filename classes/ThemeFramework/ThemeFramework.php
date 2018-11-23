@@ -332,71 +332,56 @@ class ThemeFramework
 
     }
 
-
-    public function createAdminPanelInstance($settings = array(), $options = array())
+    public function createAdminPanelInstance($options = array())
     {
-        if (empty($settings)) {
-            $settings = config('app-theme::settings');
-        }
+        $settings = config('app-theme::settings');
 
         if (empty($options)) {
             $options = config('app-theme::framework');
         }
 
-        return AdminPanel::instance($settings, $options);
+        $instance = AdminPanel::instance($settings, $options);
+        $instance->setFramework($this);
+
+        return $instance;
     }
 
 
-    public function createMetaboxInstance($settings = array(), $options = array())
+    public function createMetaboxInstance($options = array())
     {
-        if (empty($settings)) {
-            $settings = config('app-theme::settings');
-        }
-
         if (empty($options)) {
             $options = config('app-theme::metabox');
         }
 
-        return Metabox::instance($settings, $options);
+        $instance = Metabox::instance($options);
+        $instance->setFramework($this);
+
+        return $instance;
     }
 
-    public function createOptionsInstance($settings = array(), $options = array())
+    public function createShortcodeManagerInstance($options = array())
     {
-        if (empty($settings)) {
-            $settings = config('app-theme::settings');
-        }
-
-        if (empty($options)) {
-            $options = config('app-theme::options');
-        }
-
-        return Options::instance($settings, $options);
-    }
-
-    public function createShortcodeManagerInstance($settings = array(), $options = array())
-    {
-        if (empty($settings)) {
-            $settings = config('app-theme::settings');
-        }
-
         if (empty($options)) {
             $options = config('app-theme::shortcode');
         }
 
-        return ShortcodeManager::instance($settings, $options);
+        $instance = ShortcodeManager::instance($options);
+        $instance->setFramework($this);
+
+        return $instance;
     }
 
-    public function createTaxonomyInstance($settings = array(), $options = array())
+    public function createTaxonomyInstance($options = array())
     {
-        if (empty($settings)) {
-            $settings = config('app-theme::settings');
-        }
 
         if (empty($options)) {
             $options = config('app-theme::taxonomy');
         }
 
-        return Taxonomy::instance($settings, $options);
+        $instance = Taxonomy::instance($options);
+        $instance->setFramework($this);
+
+        return $instance;
     }
 
 }

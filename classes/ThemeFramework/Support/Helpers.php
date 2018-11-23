@@ -115,7 +115,7 @@ class Helpers
             }
 
             foreach ( $array as $sub_array ) {
-                $results = array_merge( $results, cs_array_search( $sub_array, $key, $value ) );
+                $results = array_merge( $results, self::cs_array_search( $sub_array, $key, $value ) );
             }
 
         }
@@ -172,43 +172,5 @@ class Helpers
 
     }
 
-    /**
-     *
-     * Load options fields
-     *
-     * @since 1.0.0
-     * @version 1.0.0
-     *
-     */
-    public static function cs_load_option_fields()
-    {
-
-        $located_fields = array();
-
-        foreach ( glob( CS_DIR .'/fields/*/*.php' ) as $cs_field ) {
-            $located_fields[] = basename( $cs_field );
-            cs_locate_template( str_replace(  CS_DIR, '', $cs_field ) );
-        }
-
-        $override_name = apply_filters( 'cs_framework_override', 'cs-framework-override' );
-        $override_dir  = get_template_directory() .'/'. $override_name .'/fields';
-
-        if( is_dir( $override_dir ) ) {
-
-            foreach ( glob( $override_dir .'/*/*.php' ) as $override_field ) {
-
-                if( ! in_array( basename( $override_field ), $located_fields ) ) {
-
-                    cs_locate_template( str_replace( $override_dir, '/fields', $override_field ) );
-
-                }
-
-            }
-
-        }
-
-        RC_Hook::do_action( 'cs_load_option_fields' );
-
-    }
 
 }
