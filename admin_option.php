@@ -23,8 +23,10 @@ class admin_option extends ecjia_admin
     {
 
 
-        $this->assign('ur_here',   __('主题选项', 'theme'));
 
+
+        $this->assign('ur_here',   __('主题选项', 'theme'));
+        $this->assign('current_code', $this->request->query('section'));
 
 
         $this->display('template_option.dwt');

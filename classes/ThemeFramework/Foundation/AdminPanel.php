@@ -99,7 +99,7 @@ class AdminPanel extends ThemeFrameworkAbstract
 
         if( ! empty( $this->options ) ) {
 
-            $this->sections   = $this->get_sections();
+            $this->sections   = $this->getSections();
             $this->theme_options = ecjia_theme_option::load_alloptions();
 
             $this->addAction('admin_theme_option_nav', 'display_setting_menus');
@@ -108,7 +108,7 @@ class AdminPanel extends ThemeFrameworkAbstract
         $this->settings_api();
 
 //        dd($this->sections);
-//        dd(ecjia_theme_setting::do_settings_sections());
+        dd(ecjia_theme_setting::get_registered_settings());
     }
 
 
@@ -117,7 +117,7 @@ class AdminPanel extends ThemeFrameworkAbstract
      *
      * @return array
      */
-    public function get_sections()
+    public function getSections()
     {
 
         $sections = array();
@@ -129,7 +129,7 @@ class AdminPanel extends ThemeFrameworkAbstract
                 foreach ( $value['sections'] as $section ) {
 
                     if ( isset( $section['fields'] ) ) {
-                        $sections[] = $section;
+                        $sections[$section['name']] = $section;
                     }
 
                 }
@@ -137,7 +137,7 @@ class AdminPanel extends ThemeFrameworkAbstract
             } else {
 
                 if ( isset( $value['fields'] ) ) {
-                    $sections[] = $value;
+                    $sections[$value['name']] = $value;
                 }
 
             }
@@ -145,7 +145,17 @@ class AdminPanel extends ThemeFrameworkAbstract
         }
 
         return $sections;
+    }
 
+    /**
+     * 获取某个section下的字段信息
+     *
+     * @param $name
+     * @return mixed
+     */
+    public function getSection($name)
+    {
+        return array_get($this->sections, $name, []);
     }
 
     /**
@@ -155,7 +165,6 @@ class AdminPanel extends ThemeFrameworkAbstract
      */
     public function display_setting_menus($name)
     {
-
         echo '<div class="setting-group">'.PHP_EOL;
         echo '<span class="setting-group-title"><i class="fontello-icon-cog"></i>'.$this->settings['menu_title'].'</span>'.PHP_EOL;
         echo '<ul class="nav nav-list m_t10">'.PHP_EOL;
@@ -167,7 +176,7 @@ class AdminPanel extends ThemeFrameworkAbstract
                 echo ' llv-active';
             }
 
-            $url = RC_Uri::current_url() . '&section='.$section['name'];
+            $url = RC_Uri::url('theme/admin_option/init', ['section' => $section['name']]);
             echo '" href="'.$url.'">' . $section['title'] . '</a></li>'.PHP_EOL;
         }
 
@@ -176,7 +185,9 @@ class AdminPanel extends ThemeFrameworkAbstract
         echo '</div>'.PHP_EOL;
     }
 
-    // wp settings api
+    /**
+     * settings api
+     */
     public function settings_api()
     {
 
