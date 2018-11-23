@@ -40,9 +40,19 @@ class Metabox extends ThemeFrameworkAbstract
      */
     private static $instance = null;
 
-    // run metabox construct
-    public function __construct( $options )
+    // instance
+    public static function instance( $framework, $options = array() )
     {
+        if ( is_null( self::$instance ) && CS_ACTIVE_METABOX ) {
+            self::$instance = new self( $framework, $options );
+        }
+        return self::$instance;
+    }
+
+    // run metabox construct
+    public function __construct( $framework, $options )
+    {
+        $this->setFramework($framework);
 
         $this->options = RC_Hook::apply_filters( 'cs_metabox_options', $options );
 
@@ -51,15 +61,6 @@ class Metabox extends ThemeFrameworkAbstract
             $this->addAction( 'save_post', 'save_post', 10, 2 );
         }
 
-    }
-
-    // instance
-    public static function instance( $options = array() )
-    {
-        if ( is_null( self::$instance ) && CS_ACTIVE_METABOX ) {
-            self::$instance = new self( $options );
-        }
-        return self::$instance;
     }
 
     // add metabox

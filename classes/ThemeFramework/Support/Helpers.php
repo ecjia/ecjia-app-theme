@@ -2,8 +2,6 @@
 
 namespace Ecjia\App\Theme\ThemeFramework\Support;
 
-use RC_Hook;
-
 class Helpers
 {
 

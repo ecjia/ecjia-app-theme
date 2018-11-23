@@ -40,9 +40,19 @@ class Taxonomy extends ThemeFrameworkAbstract
      */
     private static $instance = null;
 
-    // run taxonomy construct
-    public function __construct( $options )
+    // instance
+    public static function instance( $framework, $options = array() )
     {
+        if ( is_null( self::$instance ) && CS_ACTIVE_TAXONOMY ) {
+            self::$instance = new self( $framework, $options );
+        }
+        return self::$instance;
+    }
+
+    // run taxonomy construct
+    public function __construct( $framework, $options )
+    {
+        $this->setFramework($framework);
 
         $this->options = RC_Hook::apply_filters( 'cs_taxonomy_options', $options );
 
@@ -50,15 +60,6 @@ class Taxonomy extends ThemeFrameworkAbstract
             $this->addAction( 'admin_init', 'add_taxonomy_fields' );
         }
 
-    }
-
-    // instance
-    public static function instance( $options = array() )
-    {
-        if ( is_null( self::$instance ) && CS_ACTIVE_TAXONOMY ) {
-            self::$instance = new self( $options );
-        }
-        return self::$instance;
     }
 
     // add taxonomy add/edit fields

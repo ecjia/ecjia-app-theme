@@ -25,6 +25,9 @@ class ThemeFramework
 
     protected $option_field;
 
+    protected $app_dir;
+    protected $statics_dir;
+
     public function __construct()
     {
         // active modules
@@ -34,6 +37,8 @@ class ThemeFramework
         defined( 'CS_ACTIVE_SHORTCODE' )  or  define( 'CS_ACTIVE_SHORTCODE',  true );
         defined( 'CS_ACTIVE_CUSTOMIZE' )  or  define( 'CS_ACTIVE_CUSTOMIZE',  true );
 
+        $this->app_dir = dirname(dirname(dirname(__FILE__)));
+        $this->statics_dir = dirname(dirname(dirname(__FILE__))) . '/statics';
 
         $this->customize_options_key = '_cs_customize_options';
 
@@ -44,6 +49,11 @@ class ThemeFramework
     public function getOptionField()
     {
         return $this->option_field;
+    }
+
+    public function getAppDir()
+    {
+        return $this->app_dir;
     }
 
     /**
@@ -340,9 +350,7 @@ class ThemeFramework
             $options = config('app-theme::framework');
         }
 
-        $instance = AdminPanel::instance($settings, $options);
-        $instance->setFramework($this);
-
+        $instance = AdminPanel::instance($this, $settings, $options);
         return $instance;
     }
 
@@ -353,9 +361,7 @@ class ThemeFramework
             $options = config('app-theme::metabox');
         }
 
-        $instance = Metabox::instance($options);
-        $instance->setFramework($this);
-
+        $instance = Metabox::instance($this, $options);
         return $instance;
     }
 
@@ -365,9 +371,7 @@ class ThemeFramework
             $options = config('app-theme::shortcode');
         }
 
-        $instance = ShortcodeManager::instance($options);
-        $instance->setFramework($this);
-
+        $instance = ShortcodeManager::instance($this, $options);
         return $instance;
     }
 
@@ -378,9 +382,7 @@ class ThemeFramework
             $options = config('app-theme::taxonomy');
         }
 
-        $instance = Taxonomy::instance($options);
-        $instance->setFramework($this);
-
+        $instance = Taxonomy::instance($this, $options);
         return $instance;
     }
 

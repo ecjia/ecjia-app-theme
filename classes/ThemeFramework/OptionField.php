@@ -40,7 +40,7 @@ class OptionField
      * @version 1.0.0
      *
      */
-    public function addElement($field = array(), $value = null, $unique = null)
+    public function addElement($field = array(), $value = '', $unique = '')
     {
         $output     = '';
         $depend     = '';

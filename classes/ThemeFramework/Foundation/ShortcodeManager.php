@@ -58,9 +58,21 @@ class ShortcodeManager extends ThemeFrameworkAbstract
      */
     private static $instance = null;
 
-    // run shortcode construct
-    public function __construct( $options )
+    // instance
+    public static function instance( $framework, $options = array() )
     {
+        if ( is_null( self::$instance ) && CS_ACTIVE_SHORTCODE ) {
+            self::$instance = new self( $framework, $options );
+        }
+        return self::$instance;
+    }
+
+
+    // run shortcode construct
+    public function __construct( $framework, $options )
+    {
+
+        $this->setFramework($framework);
 
         $this->options = RC_Hook::apply_filters( 'cs_shortcode_options', $options );
         $this->exclude_post_types = RC_Hook::apply_filters( 'cs_shortcode_exclude', $this->exclude_post_types );
@@ -75,15 +87,6 @@ class ShortcodeManager extends ThemeFrameworkAbstract
 
         }
 
-    }
-
-    // instance
-    public static function instance( $options = array() )
-    {
-        if ( is_null( self::$instance ) && CS_ACTIVE_SHORTCODE ) {
-            self::$instance = new self( $options );
-        }
-        return self::$instance;
     }
 
     // add shortcode button

@@ -49,9 +49,20 @@ class Customize extends ThemeFrameworkAbstract
      */
     private static $instance = null;
 
-    // run custom construct
-    public function __construct( $options )
+    // instance
+    public static function instance( $framework, $options = array() )
     {
+        if ( is_null( self::$instance ) && CS_ACTIVE_CUSTOMIZE ) {
+            self::$instance = new self( $framework, $options );
+        }
+        return self::$instance;
+    }
+
+
+    // run custom construct
+    public function __construct( $framework, $options )
+    {
+        $this->setFramework($framework);
 
         $this->options = RC_Hook::apply_filters( 'cs_customize_options', $options );
 
@@ -61,14 +72,6 @@ class Customize extends ThemeFrameworkAbstract
 
     }
 
-    // instance
-    public static function instance( $options = array() )
-    {
-        if ( is_null( self::$instance ) && CS_ACTIVE_CUSTOMIZE ) {
-            self::$instance = new self( $options );
-        }
-        return self::$instance;
-    }
 
     // custom register
     public function customize_register( $wp_customize )
