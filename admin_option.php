@@ -22,10 +22,9 @@ class admin_option extends ecjia_admin
     public function init()
     {
 
+        ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('主题选项')));
 
 
-
-        $this->assign('ur_here',   __('主题选项', 'theme'));
         $this->assign('current_code', $this->request->query('section'));
 
 

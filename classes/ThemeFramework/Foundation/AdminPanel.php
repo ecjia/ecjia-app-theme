@@ -103,12 +103,13 @@ class AdminPanel extends ThemeFrameworkAbstract
             $this->theme_options = ecjia_theme_option::load_alloptions();
 
             $this->addAction('admin_theme_option_nav', 'display_setting_menus');
+            $this->addAction('admin_theme_option_page', 'display_theme_option_page');
         }
 
-        $this->settings_api();
+//        $this->settings_api();
 
 //        dd($this->sections);
-        dd(ecjia_theme_setting::get_registered_settings());
+//        dd(ecjia_theme_setting::get_registered_settings());
     }
 
 
@@ -183,6 +184,39 @@ class AdminPanel extends ThemeFrameworkAbstract
 
         echo '</ul>'.PHP_EOL;
         echo '</div>'.PHP_EOL;
+    }
+
+    /**
+     * 渲染主题选项配置页面
+     *
+     * @param $name
+     */
+    public function display_theme_option_page($name)
+    {
+        echo '<form method="post" class="form-horizontal" action="{$form_action}" name="theForm" >'.PHP_EOL;
+
+        echo '<fieldset>'.PHP_EOL;
+
+            echo '<div>'.PHP_EOL;
+
+                echo '<h3 class="heading">'.PHP_EOL;
+
+                echo '</h3>'.PHP_EOL;
+
+            echo '</div>'.PHP_EOL;
+
+            echo '<div>'.PHP_EOL;
+                echo '<div class="control-group">'.PHP_EOL;
+                echo '<div class="controls">'.PHP_EOL;
+                    echo '<input type="submit" value="确定" class="btn btn-gebo" />'.PHP_EOL;
+                echo '</div>'.PHP_EOL;
+                echo '</div>'.PHP_EOL;
+            echo '</div>'.PHP_EOL;
+
+        echo '</fieldset>'.PHP_EOL;
+
+        echo '</form>'.PHP_EOL;
+
     }
 
     /**
