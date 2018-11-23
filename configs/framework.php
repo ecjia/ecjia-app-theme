@@ -25,7 +25,7 @@ return array(
                 'id'      => 'i_logo_url',
                 'type'    => 'upload',
                 'title'   => '网站标志',
-                'default' => get_template_directory_uri()."/assets/images/logo.png",
+                'default' => RC_Theme::get_template_directory_uri()."/assets/images/logo.png",
                 'help'    => '上传网站标志',
                 'desc'     => '比例：高度100px，长度354px(高清图片可等比倍数大图皆可)',
             ),
@@ -33,7 +33,7 @@ return array(
                 'id'      => 'i_mobile_logo_url',
                 'type'    => 'upload',
                 'title'   => '移动端网站标志',
-                'default' => get_template_directory_uri()."/assets/images/logo_mobile.png",
+                'default' => RC_Theme::get_template_directory_uri()."/assets/images/logo_mobile.png",
                 'help'    => '上传移动端网站标志',
                 'desc'     => '上传移动端网站标志，建议大小为80px * 80px',
             ),
@@ -41,7 +41,7 @@ return array(
                 'id'      => 'i_favicon_url',
                 'type'    => 'upload',
                 'title'   => 'Favicon网标',
-                'default' => get_template_directory_uri()."/assets/images/favicon.ico",
+                'default' => RC_Theme::get_template_directory_uri()."/assets/images/favicon.ico",
                 'help'    => '上传Favicon网标',
             ),
             array(
@@ -80,7 +80,7 @@ return array(
                 'id'      => 'i_thumbnail_default',
                 'type'    => 'upload',
                 'title'   => '默认缩略图',
-                'default' => get_template_directory_uri()."/assets/images/thumbnail_default.png",
+                'default' => RC_Theme::get_template_directory_uri()."/assets/images/thumbnail_default.png",
             ),
             array(
                 'id' => 'i_posts_per_page',
@@ -99,7 +99,7 @@ return array(
                 'class'        => 'horizontal',
                 'type'         => 'checkbox',
                 'title'        => '该分类下文章不显示在文章列表中',
-                'options'      => getCategoryArray()
+                'options'      => '',//getCategoryArray()
             ),
             array(
                 'id'           => 'i_posts_meta',
@@ -241,7 +241,7 @@ return array(
                 'id'           => 'i_category_carousel',
                 'type'         => 'checkbox',
                 'title'        => '专题选择',
-                'options'      => getCategoryArray(),
+                'options'      => '',//getCategoryArray(),
                 'dependency' => array("i_category_switcher", "==", "true"),
             ),
             // 主图轮播
@@ -351,7 +351,7 @@ return array(
                         'id'      => 'i_carousel_customize_img',
                         'type'    => 'upload',
                         'title'   => '图片',
-                        'default' => get_template_directory_uri()."/assets/images/carousel_bg.png",
+                        'default' => RC_Theme::get_template_directory_uri()."/assets/images/carousel_bg.png",
                         'help'    => '上传背景',
                     ),
                 )
@@ -611,7 +611,7 @@ return array(
                 'id'      => 'i_article_support_zhifubao',
                 'type'    => 'upload',
                 'title'   => '支付宝收款二维码',
-                'default' => get_template_directory_uri()."/assets/images/zhifubao_qrcode.png",
+                'default' => RC_Theme::get_template_directory_uri()."/assets/images/zhifubao_qrcode.png",
                 'desc'     => '上传支付宝收款二维码图片',
                 'dependency' => array("i_article_support_switcher", "==", "true"),
             ),
@@ -619,7 +619,7 @@ return array(
                 'id'      => 'i_article_support_wechat',
                 'type'    => 'upload',
                 'title'   => '微信收款二维码',
-                'default' => get_template_directory_uri()."/assets/images/wechat_qrcode.png",
+                'default' => RC_Theme::get_template_directory_uri()."/assets/images/wechat_qrcode.png",
                 'desc'     => '上传微信收款二维码图片',
                 'dependency' => array("i_article_support_switcher", "==", "true"),
             ),
@@ -696,7 +696,7 @@ return array(
                 'id'      => 'i_follow_wechat',
                 'type'    => 'upload',
                 'title'   => '微信公众号二维码',
-                'default' => get_template_directory_uri()."/assets/images/wechat_official_account.png",
+                'default' => RC_Theme::get_template_directory_uri()."/assets/images/wechat_official_account.png",
                 'help'    => '上传微信公众号二维码',
             ),
             array(
