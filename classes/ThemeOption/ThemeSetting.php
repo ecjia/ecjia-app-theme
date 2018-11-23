@@ -402,7 +402,9 @@ class ThemeSetting
     public function do_settings_fields($page, $section)
     {
         if ( ! isset( $this->settings_fields[$page][$section] ) )
+        {
             return;
+        }
 
         foreach ( (array) $this->settings_fields[$page][$section] as $field ) {
             $class = '';

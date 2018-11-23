@@ -10,7 +10,9 @@ namespace Ecjia\App\Theme\ThemeFramework\Foundation;
 
 use Ecjia\App\Theme\ThemeFramework\ThemeFrameworkAbstract;
 use RC_Hook;
+use RC_Uri;
 use ecjia_theme_option;
+use ecjia_theme_setting;
 
 /**
  *
@@ -30,7 +32,7 @@ class AdminPanel extends ThemeFrameworkAbstract
      * @var string
      *
      */
-//    public $unique = CS_OPTION;
+    public $unique = '_cs_options';
 
     /**
      *
@@ -100,8 +102,13 @@ class AdminPanel extends ThemeFrameworkAbstract
             $this->sections   = $this->get_sections();
             $this->theme_options = ecjia_theme_option::load_alloptions();
 
+            $this->addAction('admin_theme_option_nav', 'display_setting_menus');
         }
 
+        $this->settings_api();
+
+//        dd($this->sections);
+//        dd(ecjia_theme_setting::do_settings_sections());
     }
 
 
@@ -141,6 +148,34 @@ class AdminPanel extends ThemeFrameworkAbstract
 
     }
 
+    /**
+     * 渲染主题选项菜单
+     *
+     * @param $name
+     */
+    public function display_setting_menus($name)
+    {
+
+        echo '<div class="setting-group">'.PHP_EOL;
+        echo '<span class="setting-group-title"><i class="fontello-icon-cog"></i>'.$this->settings['menu_title'].'</span>'.PHP_EOL;
+        echo '<ul class="nav nav-list m_t10">'.PHP_EOL;
+
+        foreach ($this->sections as $section) {
+            echo '<li><a class="setting-group-item'; //data-pjax
+
+            if ($name == $section['name']) {
+                echo ' llv-active';
+            }
+
+            $url = RC_Uri::current_url() . '&section='.$section['name'];
+            echo '" href="'.$url.'">' . $section['title'] . '</a></li>'.PHP_EOL;
+        }
+
+
+        echo '</ul>'.PHP_EOL;
+        echo '</div>'.PHP_EOL;
+    }
+
     // wp settings api
     public function settings_api()
     {
@@ -149,21 +184,21 @@ class AdminPanel extends ThemeFrameworkAbstract
 
         foreach ( $this->sections as $section ) {
 
-            register_setting( $this->unique .'_group', $this->unique, array( &$this,'validate_save' ) );
+            ecjia_theme_setting::register_setting( $this->unique .'_group', $this->unique, array( &$this,'validate_save' ) );
 
-            if( isset( $section['fields'] ) ) {
+            if ( isset( $section['fields'] ) ) {
 
-                add_settings_section( $section['name'] .'_section', $section['title'], '', $section['name'] .'_section_group' );
+                ecjia_theme_setting::add_settings_section( $section['name'] .'_section', $section['title'], '', $section['name'] .'_section_group' );
 
-                foreach( $section['fields'] as $field_key => $field ) {
+                foreach ( $section['fields'] as $field_key => $field ) {
 
-                    add_settings_field( $field_key .'_field', '', array( &$this, 'field_callback' ), $section['name'] .'_section_group', $section['name'] .'_section', $field );
+                    ecjia_theme_setting::add_settings_field( $field_key .'_field', '', array( &$this, 'field_callback' ), $section['name'] .'_section_group', $section['name'] .'_section', $field );
 
                     // set default option if isset
-                    if( isset( $field['default'] ) ) {
+                    if ( isset( $field['default'] ) ) {
                         $defaults[$field['id']] = $field['default'];
-                        if( ! empty( $this->get_option ) && ! isset( $this->get_option[$field['id']] ) ) {
-                            $this->get_option[$field['id']] = $field['default'];
+                        if ( ! empty( $this->theme_options ) && ! isset( $this->theme_options[$field['id']] ) ) {
+                            $this->theme_options[$field['id']] = $field['default'];
                         }
                     }
 
@@ -173,9 +208,8 @@ class AdminPanel extends ThemeFrameworkAbstract
         }
 
         // set default variable if empty options and not empty defaults
-        if( empty( $this->get_option )  && ! empty( $defaults ) ) {
-            update_option( $this->unique, $defaults );
-            $this->get_option = $defaults;
+        if( empty( $this->theme_options )  && ! empty( $defaults ) ) {
+            $this->theme_options = $defaults;
         }
 
     }
