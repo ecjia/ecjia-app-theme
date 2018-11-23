@@ -3,6 +3,7 @@
 namespace Ecjia\App\Theme\ThemeFramework\Support;
 
 use RC_Hook;
+use ecjia_theme_framework;
 
 class Helpers
 {
@@ -22,7 +23,7 @@ class Helpers
         $depend     = '';
         $sub        = ( isset( $field['sub'] ) ) ? 'sub-': '';
         $unique     = ( isset( $unique ) ) ? $unique : '';
-        $languages  = cs_language_defaults();
+        $languages  = ecjia_theme_framework::language_defaults();
         $class      = 'CSFramework_Option_' . $field['type'];
         $wrap_class = ( isset( $field['wrap_class'] ) ) ? ' ' . $field['wrap_class'] : '';
         $hidden     = ( isset( $field['show_only_language'] ) && ( $field['show_only_language'] != $languages['current'] ) ) ? ' hidden' : '';
