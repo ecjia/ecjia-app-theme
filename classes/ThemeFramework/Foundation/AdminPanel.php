@@ -213,7 +213,7 @@ class AdminPanel extends ThemeFrameworkAbstract
                 echo '</h3>'.PHP_EOL;
             echo '</div>'.PHP_EOL;
 
-            $this->doSettingsFields($section);
+            $this->displaySettingsPageSection($section);
 
             echo '<div class="control-group">'.PHP_EOL;
                 echo '<div class="controls">'.PHP_EOL;
@@ -264,7 +264,7 @@ class AdminPanel extends ThemeFrameworkAbstract
     }
 
 
-    protected function doSettingsFields(array $section)
+    protected function displaySettingsPageSection(array $section)
     {
         $page = $section['name'] .'_section_group';
 
