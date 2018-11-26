@@ -14,11 +14,11 @@ use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
  */
 class Subheading extends Options
 {
+    protected $type = 'subheading';
 
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $default_field = [
+        'content' => null,
+    ];
 
     public function output()
     {

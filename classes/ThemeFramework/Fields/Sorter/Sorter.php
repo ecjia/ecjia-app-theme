@@ -14,11 +14,12 @@ use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
  */
 class Sorter extends Options
 {
+    protected $type = 'sorter';
 
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $default_field = [
+        'enabled_title' => null, //Enabled Modules text change
+        'disabled_title' => null, //Disabled Modules text change
+    ];
 
     public function output()
     {

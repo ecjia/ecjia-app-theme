@@ -14,11 +14,7 @@ use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
  */
 class Icon extends Options
 {
-
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $type = 'icon';
 
     public function output()
     {

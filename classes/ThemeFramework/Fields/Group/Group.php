@@ -15,11 +15,14 @@ use Ecjia\App\Theme\ThemeFramework\Support\Helpers;
  */
 class Group extends Options
 {
+    protected $type = 'group';
 
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $default_field = [
+        'default' => [], //default value for group field
+        'button_title' => '', //button title of group field
+        'accordion_title' => '', //accordion title of group field or use ID of the field
+        'default' => [], //fields of group field this is inside fields of field
+    ];
 
     public function output()
     {

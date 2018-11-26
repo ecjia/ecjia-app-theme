@@ -15,11 +15,13 @@ use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
  */
 class Gallery extends Options
 {
+    protected $type = 'gallery';
 
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $default_field = [
+        'add_title' => null, //Add Gallery text change
+        'edit_title' => null, //Edit Gallery text change
+        'clear_title' => null, //Clear text change
+    ];
 
     public function output()
     {

@@ -14,11 +14,11 @@ use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
  */
 class Textarea extends Options
 {
+    protected $type = 'textarea';
 
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $default_field = [
+        'shortcode' => false, //shortcode support of field
+    ];
 
     public function output()
     {

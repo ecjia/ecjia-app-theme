@@ -15,11 +15,11 @@ use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
  */
 class Notice extends Options
 {
+    protected $type = 'notice';
 
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $default_field = [
+        'content' => null, //content of field
+    ];
 
     public function output()
     {

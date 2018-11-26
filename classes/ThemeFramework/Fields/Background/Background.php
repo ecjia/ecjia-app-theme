@@ -15,11 +15,16 @@ use Ecjia\App\Theme\ThemeFramework\Support\Helpers;
  */
 class Background extends Options
 {
+    protected $type = 'background';
 
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $default_field = [
+        'default' => [], //default value of field
+        'image' => '', //default image value of field
+        'repeat' => null, //default repeat value of field
+        'attachment' => null, //default attachment value of field
+        'size' => null, //default size value of field
+        'color' => null, //default color value of field
+    ];
 
     public function output()
     {

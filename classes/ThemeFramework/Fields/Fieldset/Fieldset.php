@@ -17,10 +17,12 @@ use Ecjia\App\Theme\ThemeFramework\Support\Helpers;
 class Fieldset extends Options
 {
 
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $type = 'fieldset';
+
+    protected $default_field = [
+        'fields' => [], //fields of group field this is inside fields of field
+        'un_array' => false, //Means you can call fieldset children with out the fieldset id
+    ];
 
     public function output()
     {

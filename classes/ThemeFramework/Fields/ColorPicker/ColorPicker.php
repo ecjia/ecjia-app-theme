@@ -14,11 +14,11 @@ use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
  */
 class ColorPicker extends Options
 {
+    protected $type = 'color_picker';
 
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $default_field = [
+        'rgba' => true, //rgba support of picker
+    ];
 
     public function output()
     {

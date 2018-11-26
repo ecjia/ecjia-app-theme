@@ -14,11 +14,12 @@ use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
  */
 class Switcher extends Options
 {
+    protected $type = 'switcher';
 
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $default_field = [
+        'label' => '', //label of a checkbox
+        'default' => false, //default value of field
+    ];
 
     public function output()
     {

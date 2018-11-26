@@ -15,11 +15,12 @@ use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
  */
 class ImageSelect extends Options
 {
+    protected $type = 'image_select';
 
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $default_field = [
+        'default' => [], //default value of field
+        'radio' => true, //use as radio
+    ];
 
     public function output()
     {

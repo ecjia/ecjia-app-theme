@@ -15,11 +15,15 @@ use RC_Hook;
  */
 class Typography extends Options
 {
+    protected $type = 'typography';
 
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $default_field = [
+        'default' => [], //default value of field
+        'family' => '', //font family of field
+        'variant' => 800, //font family of variant
+        'chosen' => true, //disable chosen select
+        'font' => null, //helper for output google, websafe, custom
+    ];
 
     public function output()
     {

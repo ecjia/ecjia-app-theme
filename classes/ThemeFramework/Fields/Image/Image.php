@@ -15,11 +15,11 @@ use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
  */
 class Image extends Options
 {
+    protected $type = 'image';
 
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $default_field = [
+        'add_title' => null, //Add Image text change
+    ];
 
     public function output()
     {

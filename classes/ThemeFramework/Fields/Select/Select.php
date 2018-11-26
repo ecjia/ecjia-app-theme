@@ -14,11 +14,14 @@ use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
  */
 class Select extends Options
 {
+    protected $type = 'select';
 
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $default_field = [
+        'options' => [], //options of radios
+        'query_args' => [], //query args for wordpress core radios
+        'default' => [], //default value of field
+        'default_option' => [], //default option for first select option
+    ];
 
     public function output()
     {

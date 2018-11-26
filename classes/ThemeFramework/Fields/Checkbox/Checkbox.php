@@ -15,12 +15,17 @@ use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
  */
 class Checkbox extends Options
 {
+    protected $type = 'checkbox';
 
-    public function __construct( $field, $value = '', $unique = '' ) {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $default_field = [
+        'label' => '', //label of a checkbox
+        'options' => [], //options of checkboxes
+        'query_args' => [], //query args for wordpress core checkboxes
+        'default' => [], //default value of field
+    ];
 
-    public function output() {
+    public function output()
+    {
 
         echo $this->element_before();
 

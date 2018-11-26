@@ -14,11 +14,7 @@ use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
  */
 class Text extends Options
 {
-
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $type = 'text';
 
     public function output()
     {

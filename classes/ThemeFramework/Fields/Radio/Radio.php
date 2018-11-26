@@ -14,11 +14,13 @@ use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
  */
 class Radio extends Options
 {
+    protected $type = 'radio';
 
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $default_field = [
+        'options' => [], //options of radios
+        'query_args' => [], //query args for wordpress core radios
+        'default' => [], //default value of field
+    ];
 
     public function output()
     {

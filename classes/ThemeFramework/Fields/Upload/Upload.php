@@ -14,11 +14,15 @@ use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
  */
 class Upload extends Options
 {
+    protected $type = 'upload';
 
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $default_field = [
+        'settings' => [], //settings of field
+        'upload_type' => '', //upload type of field. you can use image or video type
+        'button_title' => 'Upload', //button title of field
+        'frame_title' => 'Upload', //frame title of field
+        'insert_title' => 'Use Image', //insert title of field
+    ];
 
     public function output()
     {

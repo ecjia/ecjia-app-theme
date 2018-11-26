@@ -14,11 +14,11 @@ use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
  */
 class Wysiwyg extends Options
 {
+    protected $type = 'wysiwyg';
 
-    public function __construct( $field, $value = '', $unique = '' )
-    {
-        parent::__construct( $field, $value, $unique );
-    }
+    protected $default_field = [
+        'settings' => [], //An array of arguments.
+    ];
 
     public function output()
     {
