@@ -14,7 +14,7 @@
 <!-- {/block} -->
 
 <!-- {block name="admin_config_form"} -->
-<div class="row-fluid">
+<div class="row-fluid cs-framework">
     <!-- {ecjia:hook id=admin_theme_option_page arg=$current_code} -->
 </div>
 <!-- {/block} -->
