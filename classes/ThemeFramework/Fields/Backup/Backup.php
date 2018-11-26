@@ -3,6 +3,8 @@
 namespace Ecjia\App\Theme\ThemeFramework\Fields\Backup;
 
 use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
+use Ecjia\App\Theme\ThemeFramework\Support\Helpers;
+use ecjia_theme_option;
 
 /**
  *
@@ -27,7 +29,7 @@ class Backup extends Options
 
         echo '<hr />';
 
-        echo '<textarea name="_nonce"'. $this->element_class() . $this->element_attributes() .' disabled="disabled">'. cs_encode_string( get_option( $this->unique ) ) .'</textarea>';
+        echo '<textarea name="_nonce"'. $this->element_class() . $this->element_attributes() .' disabled="disabled">'. Helpers::cs_encode_string( ecjia_theme_option::get_option( $this->unique ) ) .'</textarea>';
         echo '<a href="'. admin_url( 'admin-ajax.php?action=cs-export-options' ) .'" class="button button-primary" target="_blank">'. __( 'Export and Download Backup', 'cs-framework' ) .'</a>';
         echo '<small>-( '. __( 'or', 'cs-framework' ) .' )-</small>';
         submit_button( __( 'Reset All Options', 'cs-framework' ), 'cs-warning-primary cs-reset-confirm', $this->unique . '[resetall]', false );
