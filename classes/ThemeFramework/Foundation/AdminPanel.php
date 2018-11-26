@@ -260,6 +260,7 @@ class AdminPanel extends ThemeFrameworkAbstract
         RC_Script::enqueue_script( 'cs-plugins',    $this->staticsPath('/theme-framework/js/cs-plugins.js'),    array(), '1.0.0', true );
         RC_Script::enqueue_script( 'cs-framework',  $this->staticsPath('/theme-framework/js/cs-framework.js'),  array( 'cs-plugins' ), '1.0.0', true );
 
+        RC_Script::enqueue_script( 'bootstrap-colorpicker' );
     }
 
 
@@ -267,7 +268,25 @@ class AdminPanel extends ThemeFrameworkAbstract
     {
         $page = $section['name'] .'_section_group';
 
-        ecjia_theme_setting::do_settings_sections($page);
+        echo '<div class="cs-content">';
+
+        echo '<div class="cs-sections">';
+
+        if ( isset( $section['fields'] ) ) {
+
+            echo '<div id="cs-tab-'. $section['name'] .'" class="cs-section">';
+            echo ( isset( $section['title'] ) && empty( $has_nav ) ) ? '<div class="cs-section-title"><h3>'. $section['title'] .'</h3></div>' : '';
+            $this->do_settings_section($page, $section);
+            echo '</div>';
+
+        }
+
+        echo '</div>'; // end .cs-sections
+
+        echo '<div class="clear"></div>';
+
+        echo '</div>'; // end .cs-content
+
     }
 
     /**
@@ -402,6 +421,51 @@ class AdminPanel extends ThemeFrameworkAbstract
         set_transient( 'cs-framework-transient', array( 'errors' => $add_errors, 'section_id' => $section_id ), $transient_time );
 
         return $request;
+    }
+
+    // settings sections
+    public function do_settings_sections( $page )
+    {
+
+        $theme_settings_sections = ecjia_theme_setting::get_settings_sections($page);
+
+        if ( empty( $theme_settings_sections ) ){
+            return;
+        }
+
+        foreach ( $theme_settings_sections as $section ) {
+
+            $this->do_settings_section($page, $section);
+
+        }
+
+    }
+
+
+    public function do_settings_section($page, $section)
+    {
+        if ( $section['callback'] ){
+            call_user_func( $section['callback'], $section );
+        }
+
+        $this->do_settings_fields( $page, $section );
+    }
+
+    // settings fields
+    public function do_settings_fields( $page, $section ) {
+
+        $section_id = $section['name'] .'_section';
+
+        $theme_settings_fields = ecjia_theme_setting::get_settings_fields($page, $section_id);
+
+        if ( empty($theme_settings_fields) ) {
+            return;
+        }
+
+        foreach ( $theme_settings_fields as $field ) {
+            call_user_func($field['callback'], $field['args']);
+        }
+
     }
 
     /**

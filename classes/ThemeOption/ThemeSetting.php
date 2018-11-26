@@ -341,6 +341,19 @@ class ThemeSetting
         $this->settings_fields[$page][$section][$id] = array('id' => $id, 'title' => $title, 'callback' => $callback, 'args' => $args);
     }
 
+    public function get_settings_sections($page = null)
+    {
+        if (is_null($page)) {
+            return $this->settings_sections;
+        }
+
+        if ( ! isset( $this->settings_sections[$page] ) )
+        {
+            return [];
+        }
+
+        return $this->settings_sections[$page];
+    }
 
     /**
      * Prints out all settings sections added to a particular settings page
@@ -384,6 +397,24 @@ class ThemeSetting
         }
     }
 
+    public function get_settings_fields($page = null, $section = null)
+    {
+        if (is_null($page)) {
+            return $this->settings_fields;
+        }
+
+        if (is_null($section))
+        {
+            return $this->settings_fields[$page];
+        }
+
+        if ( ! isset( $this->settings_fields[$page][$section] ) )
+        {
+            return [];
+        }
+
+        return $this->settings_fields[$page][$section];
+    }
 
     /**
      * Print out the settings fields for a particular settings section
