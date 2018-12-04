@@ -55,7 +55,7 @@ class theme_admin_hooks {
 
 
 
-ecjia_theme_framework::createAdminPanelInstance();
+//ecjia_theme_framework::createAdminPanelInstance();
 
 
 // end
