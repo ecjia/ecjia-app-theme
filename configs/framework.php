@@ -945,21 +945,17 @@ return array(
     // ------------------------------
     array(
         'name'     => 'license_section',
-        'title'    => '创造狮',
+        'title'    => '关于',
         'icon'     => 'fa fa-info-circle',
         'fields'   => array(
 
             array(
                 'type'    => 'heading',
-                'content' => '黑糖主题-创造狮团队'
+                'content' => 'ECJIA TEAM'
             ),
             array(
                 'type'    => 'content',
-                'content' => '为自媒体、极客、创意工作者而设计的网站主题模板，详情请访问： <a href="http://heitang.chuangzaoshi.com/" target="_blank">黑糖主题</a>',
-            ),
-            array(
-                'type'    => 'content',
-                'content' => '黑糖主题图标，配置： <a href="http://www.chuangzaoshi.com/icon" target="_blank">草莓图标库</a>',
+                'content' => 'ECJia到家官网，详情请访问： <a href="https://daojia.ecjia.com/" target="_blank">ECJia到家</a>',
             ),
 
         )
