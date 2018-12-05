@@ -49,13 +49,12 @@ defined('IN_ECJIA') or exit('No permission resources.');
 class theme_admin_hooks {
 
 
+
 }
-
-//RC_Hook::add_action( 'append_admin_setting_group', array('sms_admin_hooks', 'append_admin_setting_group') );
-
 
 
 //ecjia_theme_framework::createAdminPanelInstance();
+
 
 
 // end

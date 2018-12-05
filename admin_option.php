@@ -25,10 +25,16 @@ class admin_option extends ecjia_admin
         ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('主题选项')));
 
 
-        $this->assign('current_code', $this->request->query('section'));
+        if (RC_Hook::has_action('admin_theme_option_nav')) {
 
+            $this->assign('current_code', $this->request->query('section'));
 
-        $this->display('template_option.dwt');
+            $this->display('template_option.dwt');
+        }
+        else {
+            $this->display('template_option_default.dwt');
+        }
+
     }
 
 
