@@ -17,6 +17,7 @@ use RC_Hook;
 use RC_Format;
 use RC_Theme;
 use ecjia_theme_option;
+use Royalcms\Component\Support\Collection;
 
 class ThemeFramework
 {
@@ -27,6 +28,12 @@ class ThemeFramework
 
     protected $app_dir;
     protected $statics_dir;
+
+    /**
+     * 主题框架配置项集合
+     * @var \Royalcms\Component\Support\Collection
+     */
+    protected $config;
 
     public function __construct()
     {
@@ -352,9 +359,11 @@ class ThemeFramework
 
     }
 
-    public function createAdminPanelInstance($options = array())
+    public function createAdminPanelInstance(array $settings = array(), array $options = array())
     {
-        $settings = config('app-theme::settings');
+        if (empty($settings)) {
+            $settings = config('app-theme::settings');
+        }
 
         if (empty($options)) {
             $options = config('app-theme::framework');

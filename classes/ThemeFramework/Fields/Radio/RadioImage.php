@@ -12,7 +12,7 @@ use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
  * @version 1.0.0
  *
  */
-class ImageRadio extends Radio
+class RadioImage extends Radio
 {
     protected $type = 'radio_image';
 
