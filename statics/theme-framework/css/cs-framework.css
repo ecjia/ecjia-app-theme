@@ -885,11 +885,16 @@ radio_image style
 }
 .cs-field-radio_image .horizontal li {
   display: inline-block;
-  margin-right: 15px;
+  margin-right: 30px;
   margin-bottom: 15px;
 }
 .cs-field-radio_image input[type="radio"]:checked:before {
   line-height: 10px;
+}
+
+.cs-field-radio_image li img {
+  width: 150px;
+  height: 250px;
 }
 
 .cs-field-switcher label {
