@@ -25,18 +25,6 @@ class ThemeFramework
     protected $app_dir;
     protected $statics_dir;
 
-    /**
-     * 主题框架配置项集合
-     * @var \Royalcms\Component\Support\Collection
-     */
-    protected $config;
-
-    protected $CS_ACTIVE_FRAMEWORK = false;
-    protected $CS_ACTIVE_METABOX = false;
-    protected $CS_ACTIVE_TAXONOMY = false;
-    protected $CS_ACTIVE_SHORTCODE = false;
-    protected $CS_ACTIVE_CUSTOMIZE = false;
-
     public function __construct()
     {
         $this->app_dir = dirname(dirname(dirname(__FILE__)));
@@ -46,91 +34,6 @@ class ThemeFramework
 
         $this->option_field = new OptionField($this);
 
-    }
-
-    /**
-     * active modules
-     * @param $bool
-     * @return $this
-     */
-    public function setActiveFramework($bool)
-    {
-        $this->CS_ACTIVE_FRAMEWORK = $bool;
-
-        return $this;
-    }
-
-    public function getActiveFramework()
-    {
-        return $this->CS_ACTIVE_FRAMEWORK;
-    }
-
-    /**
-     * active modules
-     * @param $bool
-     * @return $this
-     */
-    public function setActiveMetabox($bool)
-    {
-        $this->CS_ACTIVE_METABOX = $bool;
-
-        return $this;
-    }
-
-    public function getActiveMetabox()
-    {
-        return $this->CS_ACTIVE_METABOX;
-    }
-
-    /**
-     * active modules
-     * @param $bool
-     * @return $this
-     */
-    public function setActiveTaxonomy($bool)
-    {
-        $this->CS_ACTIVE_TAXONOMY = $bool;
-
-        return $this;
-    }
-
-    public function getActiveTaxonomy()
-    {
-        return $this->CS_ACTIVE_TAXONOMY;
-    }
-
-    /**
-     * active modules
-     * @param $bool
-     * @return $this
-     */
-    public function setActiveShortcode($bool)
-    {
-        $this->CS_ACTIVE_SHORTCODE = $bool;
-
-        return $this;
-    }
-
-    public function getActiveShortcode()
-    {
-        return $this->CS_ACTIVE_SHORTCODE;
-    }
-
-    /**
-     * active modules
-     * @param $bool
-     * @return $this
-     */
-    public function setActiveCustomize($bool)
-    {
-        $this->CS_ACTIVE_CUSTOMIZE = $bool;
-
-        return $this;
-    }
-
-    public function getActiveCustomize()
-    {
-        return $this->CS_ACTIVE_CUSTOMIZE;
     }
 
     public function getOptionField()

@@ -90,7 +90,7 @@ class AdminPanel extends ThemeFrameworkAbstract
      */
     public static function instance( $framework, $settings = array(), $options = array() )
     {
-        if ( is_null( self::$instance ) && $framework->getActiveFramework() ) {
+        if ( is_null( self::$instance ) ) {
             self::$instance = new self( $framework, $settings, $options );
         }
         return self::$instance;

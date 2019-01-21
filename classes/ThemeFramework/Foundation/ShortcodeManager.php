@@ -66,7 +66,7 @@ class ShortcodeManager extends ThemeFrameworkAbstract
      */
     public static function instance( $framework, $options = array() )
     {
-        if ( is_null( self::$instance ) && $framework->getActiveShortcode() ) {
+        if ( is_null( self::$instance ) ) {
             self::$instance = new self( $framework, $options );
         }
         return self::$instance;
