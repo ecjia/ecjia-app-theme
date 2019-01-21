@@ -262,6 +262,10 @@ class AdminPanel extends ThemeFrameworkAbstract
         RC_Script::enqueue_script( 'cs-framework',  $this->staticsPath('/theme-framework/js/cs-framework.js'),  array( 'cs-plugins' ), '1.0.0', true );
 
         RC_Script::enqueue_script( 'bootstrap-colorpicker' );
+
+        RC_Script::enqueue_script('jquery-ui-dialog');
+        RC_Script::enqueue_script('jquery-ui-sortable');
+        RC_Script::enqueue_script('jquery-ui-accordion');
     }
 
 
