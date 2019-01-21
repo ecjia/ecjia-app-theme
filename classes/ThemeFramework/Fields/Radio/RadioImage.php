@@ -2,8 +2,6 @@
 
 namespace Ecjia\App\Theme\ThemeFramework\Fields\Radio;
 
-use Ecjia\App\Theme\ThemeFramework\Foundation\Options;
-
 /**
  *
  * Field: Radio
@@ -25,7 +23,7 @@ class RadioImage extends Radio
 
     public function output()
     {
-        
+
         echo $this->element_before();
 
         if ( isset( $this->field['options'] ) ) {
