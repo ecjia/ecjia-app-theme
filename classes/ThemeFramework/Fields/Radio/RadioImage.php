@@ -25,7 +25,7 @@ class RadioImage extends Radio
 
     public function output()
     {
-
+        
         echo $this->element_before();
 
         if ( isset( $this->field['options'] ) ) {
@@ -37,7 +37,9 @@ class RadioImage extends Radio
 
             echo '<ul'. $this->element_class() .'>';
             foreach ( $options as $key => $value ) {
-                echo '<li><label><input type="radio" name="'. $this->element_name() .'" value="'. $key .'"'. $this->element_attributes( $key ) . $this->checked( $this->element_value(), $key ) .'/> '. $value .'</label></li>';
+                echo '<li>';
+                echo '<label><input type="radio" name="'. $this->element_name() .'" value="'. $key .'"'. $this->element_attributes( $key ) . $this->checked( $this->element_value(), $key ) .'/> '. $value .'</label>';
+                echo '</li>';
             }
             echo '</ul>';
             }
