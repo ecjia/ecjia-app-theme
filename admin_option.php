@@ -16,6 +16,8 @@ class admin_option extends ecjia_admin
     {
         parent::__construct();
 
+        RC_Style::enqueue_style('uniform-aristo');
+        RC_Script::enqueue_script('jquery-uniform');
     }
 
 
