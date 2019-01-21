@@ -58,10 +58,15 @@ class ShortcodeManager extends ThemeFrameworkAbstract
      */
     private static $instance = null;
 
-    // instance
+    /**
+     * instance
+     * @param $framework \Ecjia\App\Theme\ThemeFramework\ThemeFramework
+     * @param array $options
+     * @return class|ShortcodeManager
+     */
     public static function instance( $framework, $options = array() )
     {
-        if ( is_null( self::$instance ) && CS_ACTIVE_SHORTCODE ) {
+        if ( is_null( self::$instance ) && $framework->getActiveShortcode() ) {
             self::$instance = new self( $framework, $options );
         }
         return self::$instance;

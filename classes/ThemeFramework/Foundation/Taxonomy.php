@@ -40,10 +40,15 @@ class Taxonomy extends ThemeFrameworkAbstract
      */
     private static $instance = null;
 
-    // instance
+    /**
+     * instance
+     * @param $framework \Ecjia\App\Theme\ThemeFramework\ThemeFramework
+     * @param array $options
+     * @return class|Taxonomy
+     */
     public static function instance( $framework, $options = array() )
     {
-        if ( is_null( self::$instance ) && CS_ACTIVE_TAXONOMY ) {
+        if ( is_null( self::$instance ) && $framework->getActiveTaxonomy() ) {
             self::$instance = new self( $framework, $options );
         }
         return self::$instance;

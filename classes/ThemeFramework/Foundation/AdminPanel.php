@@ -83,13 +83,14 @@ class AdminPanel extends ThemeFrameworkAbstract
 
     /**
      * instance
+     * @param $framework \Ecjia\App\Theme\ThemeFramework\ThemeFramework
      * @param array $settings
      * @param array $options
      * @return AdminPanel|class
      */
     public static function instance( $framework, $settings = array(), $options = array() )
     {
-        if ( is_null( self::$instance ) && CS_ACTIVE_FRAMEWORK ) {
+        if ( is_null( self::$instance ) && $framework->getActiveFramework() ) {
             self::$instance = new self( $framework, $settings, $options );
         }
         return self::$instance;
@@ -481,7 +482,12 @@ class AdminPanel extends ThemeFrameworkAbstract
 
     public function add_settings_error( $message, $type = 'error', $id = 'global' )
     {
-        return array( 'setting' => 'cs-errors', 'code' => $id, 'message' => $message, 'type' => $type );
+        return array(
+            'setting' => 'cs-errors',
+            'code' => $id,
+            'message' => $message,
+            'type' => $type
+        );
     }
 
 

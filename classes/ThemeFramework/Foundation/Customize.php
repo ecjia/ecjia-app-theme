@@ -49,10 +49,15 @@ class Customize extends ThemeFrameworkAbstract
      */
     private static $instance = null;
 
-    // instance
+    /**
+     * instance
+     * @param $framework \Ecjia\App\Theme\ThemeFramework\ThemeFramework
+     * @param array $options
+     * @return class|Customize
+     */
     public static function instance( $framework, $options = array() )
     {
-        if ( is_null( self::$instance ) && CS_ACTIVE_CUSTOMIZE ) {
+        if ( is_null( self::$instance ) && $framework->getActiveCustomize() ) {
             self::$instance = new self( $framework, $options );
         }
         return self::$instance;
