@@ -22,13 +22,29 @@ class ThemeFramework
 
     protected $option_field;
 
+    /**
+     * 当前主题应用根目录
+     * @var string
+     */
     protected $app_dir;
+
+    /**
+     * 当前主题应用的静态资源目录
+     * @var string
+     */
     protected $statics_dir;
+
+    /**
+     * 当前主题框架的根目录
+     * @var
+     */
+    protected $framework_dir;
 
     public function __construct()
     {
-        $this->app_dir = dirname(dirname(dirname(__FILE__)));
-        $this->statics_dir = dirname(dirname(dirname(__FILE__))) . '/statics';
+        $this->framework_dir = __DIR__;
+        $this->app_dir = dirname(dirname($this->framework_dir));
+        $this->statics_dir = $this->app_dir . '/statics';
 
         $this->customize_options_key = '_cs_customize_options';
 
@@ -41,11 +57,28 @@ class ThemeFramework
         return $this->option_field;
     }
 
+    /**
+     * 当前主题框架的根目录
+     * @return string
+     */
+    public function getFrameworkDir()
+    {
+        return $this->framework_dir;
+    }
+
+    /**
+     * 当前主题应用根目录
+     * @return string
+     */
     public function getAppDir()
     {
         return $this->app_dir;
     }
 
+    /**
+     * 当前主题应用的静态资源目录
+     * @return string
+     */
     public function getStaticsDir()
     {
         return $this->statics_dir;
@@ -94,7 +127,6 @@ class ThemeFramework
     {
         return ecjia_theme_option::load_alloptions();
     }
-
 
     /**
      *
