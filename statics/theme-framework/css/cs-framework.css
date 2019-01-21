@@ -1202,9 +1202,10 @@ radio_image style
 }
 .cs-field-notice .cs-notice {
   font-size: 12px;
-  padding: 17px 30px;
+  padding: 12px 35px 12px 14px;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
+  border-radius: 4px;
 }
 .cs-field-notice .cs-success {
   color: #3c763d;
