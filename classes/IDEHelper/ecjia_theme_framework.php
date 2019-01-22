@@ -52,7 +52,7 @@
 class ecjia_theme_framework
 {
 
-    public static function createAdminPanelInstance($options = array()) {}
+    public static function createAdminPanelInstance($settings = array(), $options = array()) {}
 
 
 
