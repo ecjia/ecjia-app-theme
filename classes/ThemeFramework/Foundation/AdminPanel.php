@@ -190,7 +190,7 @@ class AdminPanel extends ThemeFrameworkAbstract
         echo '<ul class="nav nav-list m_t10">'.PHP_EOL;
 
         foreach ($this->sections as $section) {
-            echo '<li><a class="setting-group-item'; //data-pjax
+            echo '<li><a class="data-pjax setting-group-item'; //data-pjax
 
             if ($name == $section['name']) {
                 echo ' llv-active';
