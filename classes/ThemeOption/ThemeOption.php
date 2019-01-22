@@ -350,7 +350,7 @@ class ThemeOption
         RC_Hook::do_action( 'ecjia_theme_update_option', $option, $old_value, $value );
 
         $result = $this->repository->updateOption($option, $serialized_value);
-        dd($result);
+
         if ( ! $result ) {
             return false;
         }
@@ -444,8 +444,12 @@ class ThemeOption
         $notoptions = ecjia_cache(self::APPCACHE_KEY)->get( 'notoptions' );
         if ( !is_array( $notoptions ) || !isset( $notoptions[$option] ) )
             /** This filter is documented in wp-includes/option.php */
+        {
             if ( RC_Hook::apply_filters( "ecjia_theme_default_option_{$option}", false, $option, false ) !== $this->get_option( $option ) )
+            {
                 return false;
+            }
+        }
 
         $serialized_value = RC_Format::maybe_serialize( $value );
 
