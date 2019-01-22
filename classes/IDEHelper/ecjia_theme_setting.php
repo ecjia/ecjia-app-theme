@@ -178,6 +178,12 @@ class ecjia_theme_setting
      */
     public static function add_settings_field($id, $title, $callback, $page, $section = 'default', $args = array()) {}
 
+    /**
+     * @param null $page
+     * @return array
+     */
+    public static function get_settings_sections($page = null) {}
+
 
     /**
      * Prints out all settings sections added to a particular settings page
@@ -194,7 +200,11 @@ class ecjia_theme_setting
      */
     public static function do_settings_sections( $page ) {}
 
-
+    /**
+     * @param null $page
+     * @param null $section
+     * @return array
+     */
     public static function get_settings_fields($page = null, $section = null) {}
 
 
