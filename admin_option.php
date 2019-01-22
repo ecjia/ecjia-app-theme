@@ -40,4 +40,53 @@ class admin_option extends ecjia_admin
     }
 
 
+    /**
+     * we are saving settings sent from a settings page
+     */
+    public function update()
+    {
+        $whitelist_options = array();
+
+        /**
+         * Filters the options white list.
+         *
+         * @since 2.7.0
+         *
+         * @param array $whitelist_options White list options.
+         */
+        $whitelist_options = RC_Hook::apply_filters( 'whitelist_options', $whitelist_options );
+
+        $options = $this->request->input(Ecjia\App\Theme\ThemeFramework\ThemeConstant::CS_OPTION);
+
+        if ( $options ) {
+
+            foreach ( $options as $option => $value ) {
+                $option = trim( $option );
+
+                if ( ! is_array( $value ) ) {
+                    $value = trim( $value );
+                }
+
+                $value = rc_unslash( $value );
+
+                ecjia_theme_option::update_option( $option, $value );
+            }
+
+        }
+
+        /**
+         * Handle settings errors and return to options page
+         */
+        // If no settings errors were registered add a general 'updated' message.
+        if ( !count( ecjia_theme_setting::get_settings_errors() ) )
+        {
+            ecjia_theme_setting::add_settings_error('general', 'settings_updated', __('Settings saved.'), 'updated');
+        }
+
+        ecjia_theme_transient::set_transient('settings_errors', ecjia_theme_setting::get_settings_errors(), 30);
+
+        RC_Hook::do_action('admin_theme_option_save');
+
+    }
+
 }
