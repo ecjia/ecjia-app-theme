@@ -26,14 +26,21 @@ class admin_option extends ecjia_admin
 
         ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('主题选项')));
 
-
         if (RC_Hook::has_action('admin_theme_option_nav')) {
 
-            $this->assign('current_code', $this->request->query('section'));
+            $section = $this->request->input('section');
+
+            if (empty($section)) {
+                $section = RC_Hook::apply_filters('template_option_default_section', $section);
+            }
+
+
+            $this->assign('current_code', $section);
 
             $this->display('template_option.dwt');
         }
-        else {
+        else
+        {
             $this->display('template_option_default.dwt');
         }
 
@@ -45,6 +52,8 @@ class admin_option extends ecjia_admin
      */
     public function update()
     {
+        $section = $this->request->input('section');
+
         $whitelist_options = array();
 
         /**
@@ -80,13 +89,19 @@ class admin_option extends ecjia_admin
         // If no settings errors were registered add a general 'updated' message.
         if ( !count( ecjia_theme_setting::get_settings_errors() ) )
         {
-            ecjia_theme_setting::add_settings_error('general', 'settings_updated', __('Settings saved.'), 'updated');
+            ecjia_theme_setting::add_settings_error('general', 'settings_updated', __('设置保存成功。'), 'updated');
         }
 
         ecjia_theme_transient::set_transient('settings_errors', ecjia_theme_setting::get_settings_errors(), 30);
 
         RC_Hook::do_action('admin_theme_option_save');
 
+        $links[] = array(
+            'text' => __('返回上一页'),
+            'href'=>RC_Uri::url('theme/admin_option/init', ['section' => $section])
+        );
+
+        $this->showmessage('设置保存成功', ecjia::MSGSTAT_SUCCESS | ecjia::MSGTYPE_HTML, array('links' => $links));
     }
 
 }
