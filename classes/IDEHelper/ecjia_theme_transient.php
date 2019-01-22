@@ -45,7 +45,11 @@
 //  ---------------------------------------------------------------------------------
 //
 
-class ecjia_theme_transient extends Ecjia\App\Theme\Facades\EcjiaThemeTransient
+/**
+ * Class ecjia_theme_transient
+ * @see \Ecjia\App\Theme\ThemeOption\ThemeTransient
+ */
+class ecjia_theme_transient
 {
    
 

@@ -45,8 +45,21 @@
 //  ---------------------------------------------------------------------------------
 //
 
-class ecjia_theme_option extends Ecjia\App\Theme\Facades\EcjiaThemeOption
+/**
+ * Class ecjia_theme_option
+ * @see \Ecjia\App\Theme\ThemeOption\ThemeOption
+ */
+class ecjia_theme_option
 {
+
+    /**
+     * Loads and caches all autoloaded options, if available or all options.
+     *
+     * @since 2.2.0
+     *
+     * @return array List of all options.
+     */
+    public static function load_alloptions() {}
 
     /**
      * Retrieves an option value based on an option name.
