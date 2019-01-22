@@ -46,7 +46,7 @@ class ThemeFramework
         $this->app_dir = dirname(dirname($this->framework_dir));
         $this->statics_dir = $this->app_dir . '/statics';
 
-        $this->customize_options_key = '_cs_customize_options';
+        $this->customize_options_key = ThemeConstant::CS_CUSTOMIZE;
 
         $this->option_field = new OptionField($this);
 
@@ -289,7 +289,8 @@ class ThemeFramework
             $options = config('app-theme::framework');
         }
 
-        $instance = AdminPanel::instance($this, $settings, $options);
+        $instance = AdminPanel::instance($settings, $options);
+        $instance->setFramework($this);
         return $instance;
     }
 
@@ -300,7 +301,8 @@ class ThemeFramework
             $options = config('app-theme::metabox');
         }
 
-        $instance = Metabox::instance($this, $options);
+        $instance = Metabox::instance($options);
+        $instance->setFramework($this);
         return $instance;
     }
 
@@ -310,7 +312,8 @@ class ThemeFramework
             $options = config('app-theme::shortcode');
         }
 
-        $instance = ShortcodeManager::instance($this, $options);
+        $instance = ShortcodeManager::instance($options);
+        $instance->setFramework($this);
         return $instance;
     }
 
@@ -321,7 +324,8 @@ class ThemeFramework
             $options = config('app-theme::taxonomy');
         }
 
-        $instance = Taxonomy::instance($this, $options);
+        $instance = Taxonomy::instance($options);
+        $instance->setFramework($this);
         return $instance;
     }
 

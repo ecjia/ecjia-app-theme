@@ -42,22 +42,21 @@ class Metabox extends ThemeFrameworkAbstract
 
     /**
      * instance
-     * @param $framework \Ecjia\App\Theme\ThemeFramework\ThemeFramework
      * @param array $options
      * @return class|Metabox
      */
-    public static function instance( $framework, $options = array() )
+    public static function instance( $options = array() )
     {
         if ( is_null( self::$instance ) ) {
-            self::$instance = new self( $framework, $options );
+            self::$instance = new self( $options );
         }
         return self::$instance;
     }
 
     // run metabox construct
-    public function __construct( $framework, $options )
+    public function __construct( $options )
     {
-        $this->setFramework($framework);
+        parent::__construct();
 
         $this->options = RC_Hook::apply_filters( 'cs_metabox_options', $options );
 

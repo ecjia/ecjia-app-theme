@@ -81,18 +81,10 @@ class Helpers
      * @version 1.0.0
      *
      */
-    public static function cs_get_var( $var, $default = '' )
+    public static function cs_get_var( $name, $default = null )
     {
 
-        if( isset( $_POST[$var] ) ) {
-            return $_POST[$var];
-        }
-
-        if( isset( $_GET[$var] ) ) {
-            return $_GET[$var];
-        }
-
-        return $default;
+        return royalcms('request')->input($name, $default);
 
     }
 
@@ -105,18 +97,12 @@ class Helpers
      * @version 1.0.0
      *
      */
-    public static function cs_get_vars( $var, $depth, $default = '' )
+    public static function cs_get_vars( $name, $depth, $default = null )
     {
 
-        if( isset( $_POST[$var][$depth] ) ) {
-            return $_POST[$var][$depth];
-        }
+        $name = $name . '.' . $depth;
 
-        if( isset( $_GET[$var][$depth] ) ) {
-            return $_GET[$var][$depth];
-        }
-
-        return $default;
+        return royalcms('request')->input($name, $default);
 
     }
 

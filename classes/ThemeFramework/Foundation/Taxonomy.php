@@ -57,6 +57,8 @@ class Taxonomy extends ThemeFrameworkAbstract
     // run taxonomy construct
     public function __construct( $framework, $options )
     {
+        parent::__construct();
+
         $this->setFramework($framework);
 
         $this->options = RC_Hook::apply_filters( 'cs_taxonomy_options', $options );

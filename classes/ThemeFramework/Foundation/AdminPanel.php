@@ -8,6 +8,8 @@
 
 namespace Ecjia\App\Theme\ThemeFramework\Foundation;
 
+use Ecjia\App\Theme\ThemeFramework\Support\Helpers;
+use Ecjia\App\Theme\ThemeFramework\ThemeConstant;
 use Ecjia\App\Theme\ThemeFramework\ThemeFrameworkAbstract;
 use RC_Hook;
 use RC_Uri;
@@ -15,6 +17,7 @@ use RC_Style;
 use RC_Script;
 use ecjia_theme_option;
 use ecjia_theme_setting;
+use ecjia_theme_transient;
 
 /**
  *
@@ -34,7 +37,7 @@ class AdminPanel extends ThemeFrameworkAbstract
      * @var string
      *
      */
-    public $unique = '_cs_options';
+    public $unique = ThemeConstant::CS_OPTION;
 
     /**
      *
@@ -83,24 +86,23 @@ class AdminPanel extends ThemeFrameworkAbstract
 
     /**
      * instance
-     * @param $framework \Ecjia\App\Theme\ThemeFramework\ThemeFramework
      * @param array $settings
      * @param array $options
      * @return AdminPanel|class
      */
-    public static function instance( $framework, $settings = array(), $options = array() )
+    public static function instance($settings = array(), $options = array() )
     {
         if ( is_null( self::$instance ) ) {
-            self::$instance = new self( $framework, $settings, $options );
+            self::$instance = new self($settings, $options );
         }
         return self::$instance;
     }
 
 
     // run framework construct
-    public function __construct( $framework, $settings, $options )
+    public function __construct($settings, $options )
     {
-        $this->setFramework($framework);
+        parent::__construct();
 
         $this->settings = RC_Hook::apply_filters( 'cs_framework_settings', $settings );
         $this->options  = RC_Hook::apply_filters( 'cs_framework_options', $options );
@@ -204,7 +206,9 @@ class AdminPanel extends ThemeFrameworkAbstract
 
         $this->setSettingsFields($section);
 
-        echo '<form method="post" class="form-horizontal" action="{$form_action}" name="theForm" >'.PHP_EOL;
+        $form_action = RC_Uri::url('theme/admin_option/update', ['section' => $name]);
+
+        echo '<form method="post" class="form-horizontal" action="' . $form_action . '" name="theForm" >'.PHP_EOL;
 
         echo '<fieldset>'.PHP_EOL;
 
@@ -302,7 +306,7 @@ class AdminPanel extends ThemeFrameworkAbstract
 
         $defaults = array();
 
-        ecjia_theme_setting::register_setting( $this->unique .'_group', $this->unique, array( &$this,'validate_save' ) );
+        ecjia_theme_setting::register_setting( $this->unique .'_group', $this->unique, array( &$this, 'validate_save' ) );
 
         if ( isset( $section['fields'] ) ) {
 
@@ -330,12 +334,14 @@ class AdminPanel extends ThemeFrameworkAbstract
 
     }
 
-    // section fields validate in save
+    /**
+     * section fields validate in save
+     * @return null|array
+     */
     public function validate_save( $request )
-    {
-
+    {dd($request);
         $add_errors = array();
-        $section_id = cs_get_var( 'cs_section_id' );
+        $section_id = Helpers::cs_get_var( 'cs_section_id' );
 
         // ignore nonce requests
         if ( isset( $request['_nonce'] ) ) {
@@ -344,7 +350,7 @@ class AdminPanel extends ThemeFrameworkAbstract
 
         // import
         if ( isset( $request['import'] ) && ! empty( $request['import'] ) ) {
-            $decode_string = cs_decode_string( $request['import'] );
+            $decode_string = Helpers::cs_decode_string( $request['import'] );
             if ( is_array( $decode_string ) ) {
                 return $decode_string;
             }
@@ -354,7 +360,7 @@ class AdminPanel extends ThemeFrameworkAbstract
         // reset all options
         if ( isset( $request['resetall'] ) ) {
             $add_errors[] = $this->add_settings_error( __( 'Default options restored.', 'cs-framework' ), 'updated' );
-            return;
+            return null;
         }
 
         // reset only section
@@ -402,7 +408,7 @@ class AdminPanel extends ThemeFrameworkAbstract
 
                             if ( ! empty( $validate ) ) {
                                 $add_errors[] = $this->add_settings_error( $validate, 'error', $field['id'] );
-                                $request[$field['id']] = ( isset( $this->get_option[$field['id']] ) ) ? $this->get_option[$field['id']] : '';
+                                $request[$field['id']] = ( isset( $this->theme_options[$field['id']] ) ) ? $this->theme_options[$field['id']] : '';
                             }
 
                         }
@@ -422,8 +428,7 @@ class AdminPanel extends ThemeFrameworkAbstract
         RC_Hook::do_action( 'cs_validate_save', $request );
 
         // set transient
-        $transient_time = ( cs_language_defaults() !== false ) ? 30 : 10;
-        set_transient( 'cs-framework-transient', array( 'errors' => $add_errors, 'section_id' => $section_id ), $transient_time );
+        ecjia_theme_transient::set_transient( 'cs-framework-transient', array( 'errors' => $add_errors, 'section_id' => $section_id ), 30 );
 
         return $request;
     }

@@ -81,6 +81,8 @@ class Options extends ThemeFrameworkAbstract
 
     public function __construct($field = array(), $value = null, $unique = '')
     {
+        parent::__construct();
+
         $this->field     = $field;
         $this->value     = $value;
         $this->org_value = $value;
