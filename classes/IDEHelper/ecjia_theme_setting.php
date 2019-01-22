@@ -82,7 +82,7 @@ class ecjia_theme_setting
      *
      * @since 2.7.0
      * @since 4.7.0 `$sanitize_callback` was deprecated. The callback from `register_setting()` is now used instead.
-     *
+     * @uses \Ecjia\App\Theme\ThemeOption\ThemeSetting::unregister_setting
      * @global array $new_whitelist_options
      *
      * @param string   $option_group      The settings group name used during registration.
@@ -154,7 +154,7 @@ class ecjia_theme_setting
      *
      * @since 2.7.0
      * @since 4.2.0 The `$class` argument was added.
-     *
+     * @see \Ecjia\App\Theme\ThemeOption\ThemeSetting::add_settings_field
      * @global $wp_settings_fields Storage array of settings fields and info about their pages/sections
      *
      * @param string   $id       Slug-name to identify the field. Used in the 'id' attribute of tags.
