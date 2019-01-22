@@ -116,9 +116,19 @@ class AdminPanel extends ThemeFrameworkAbstract
             $this->addAction('admin_theme_option_nav', 'display_setting_menus');
             $this->addAction('admin_theme_option_page', 'display_theme_option_page');
             $this->addAction('admin_enqueue_scripts', 'admin_enqueue_scripts');
+            $this->addFilter('template_option_default_section', 'template_option_default_section');
         }
 
         $this->admin_enqueue_scripts();
+    }
+
+    /**
+     * 获取默认的分组名称
+     * @return mixed
+     */
+    public function template_option_default_section()
+    {
+        return collect($this->sections)->keys()->first();
     }
 
 
@@ -180,7 +190,7 @@ class AdminPanel extends ThemeFrameworkAbstract
         echo '<ul class="nav nav-list m_t10">'.PHP_EOL;
 
         foreach ($this->sections as $section) {
-            echo '<li><a class="data-pjax setting-group-item'; //data-pjax
+            echo '<li><a class="setting-group-item'; //data-pjax
 
             if ($name == $section['name']) {
                 echo ' llv-active';
@@ -339,7 +349,7 @@ class AdminPanel extends ThemeFrameworkAbstract
      * @return null|array
      */
     public function validate_save( $request )
-    {dd($request);
+    {
         $add_errors = array();
         $section_id = Helpers::cs_get_var( 'cs_section_id' );
 
