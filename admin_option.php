@@ -16,8 +16,12 @@ class admin_option extends ecjia_admin
     {
         parent::__construct();
 
+        RC_Script::enqueue_script('jquery-validate');
+        RC_Script::enqueue_script('jquery-form');
         RC_Style::enqueue_style('uniform-aristo');
         RC_Script::enqueue_script('jquery-uniform');
+
+        RC_Script::enqueue_script('admin_option', RC_App::apps_url('statics/js/admin_option.js', __FILE__));
     }
 
 
@@ -38,9 +42,7 @@ class admin_option extends ecjia_admin
             $this->assign('current_code', $section);
 
             $this->display('template_option.dwt');
-        }
-        else
-        {
+        } else {
             $this->display('template_option_default.dwt');
         }
 
@@ -63,22 +65,22 @@ class admin_option extends ecjia_admin
          *
          * @param array $whitelist_options White list options.
          */
-        $whitelist_options = RC_Hook::apply_filters( 'whitelist_options', $whitelist_options );
+        $whitelist_options = RC_Hook::apply_filters('whitelist_options', $whitelist_options);
 
         $options = $this->request->input(Ecjia\App\Theme\ThemeFramework\ThemeConstant::CS_OPTION);
 
-        if ( $options ) {
+        if ($options) {
 
-            foreach ( $options as $option => $value ) {
-                $option = trim( $option );
+            foreach ($options as $option => $value) {
+                $option = trim($option);
 
-                if ( ! is_array( $value ) ) {
-                    $value = trim( $value );
+                if (!is_array($value)) {
+                    $value = trim($value);
                 }
 
-                $value = rc_unslash( $value );
+                $value = rc_unslash($value);
 
-                ecjia_theme_option::update_option( $option, $value );
+                ecjia_theme_option::update_option($option, $value);
             }
 
         }
@@ -87,8 +89,7 @@ class admin_option extends ecjia_admin
          * Handle settings errors and return to options page
          */
         // If no settings errors were registered add a general 'updated' message.
-        if ( !count( ecjia_theme_setting::get_settings_errors() ) )
-        {
+        if (!count(ecjia_theme_setting::get_settings_errors())) {
             ecjia_theme_setting::add_settings_error('general', 'settings_updated', __('设置保存成功。'), 'updated');
         }
 
@@ -96,12 +97,7 @@ class admin_option extends ecjia_admin
 
         RC_Hook::do_action('admin_theme_option_save');
 
-        $links[] = array(
-            'text' => __('返回上一页'),
-            'href'=>RC_Uri::url('theme/admin_option/init', ['section' => $section])
-        );
-
-        $this->showmessage('设置保存成功', ecjia::MSGSTAT_SUCCESS | ecjia::MSGTYPE_HTML, array('links' => $links));
+        $this->showmessage('设置保存成功', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('theme/admin_option/init', array('section' => $section))));
     }
 
 }
