@@ -27,6 +27,7 @@ class admin_option extends ecjia_admin
 
     public function init()
     {
+        $this->admin_priv('theme_option_manage');
 
         ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('主题选项')));
 
@@ -54,6 +55,8 @@ class admin_option extends ecjia_admin
      */
     public function update()
     {
+        $this->admin_priv('theme_option_update', ecjia::MSGTYPE_JSON);
+
         $section = $this->request->input('section');
 
         $whitelist_options = array();
