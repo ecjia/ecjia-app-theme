@@ -50,7 +50,7 @@
 
 defined('IN_ECJIA') or exit('No permission resources.');
 
-class admin_home_group_sort extends ecjia_admin {
+class admin_home_module extends ecjia_admin {
 
 	public function __construct() {
 		parent::__construct();
@@ -144,7 +144,7 @@ class admin_home_group_sort extends ecjia_admin {
 			ecjia_config::instance()->write_config('home_visual_page', '');
 		}
 		
-		return $this->showmessage('保存排序成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('theme/admin_home_group_sort/init')));
+		return $this->showmessage('保存排序成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('theme/admin_home_module/init')));
 	}
 	
 }
