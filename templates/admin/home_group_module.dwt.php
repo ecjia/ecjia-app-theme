@@ -26,11 +26,43 @@
 </h3>
 
 <div class="row-fluid">
-	<div class="span12">
+    <div class="span3">
+
+        <div class="setting-group m_b20">
+            <span class="setting-group-title"><i class="fontello-icon-cog"></i>{t}可用产品{/t}</span>
+            <ul class="nav nav-list m_t10">
+                <!-- {foreach from=$platform_groups item=platform} -->
+                <li>
+                    <a class="setting-group-item
+                            {if $platform.platform == $current_platform}
+                            llv-active
+                            {/if}
+                            " href='{url path="theme/admin_home_module/init" args="platform={$platform.platform}"}'>{$platform.label}</a>
+                </li>
+                <!-- {/foreach} -->
+            </ul>
+        </div>
+
+    </div>
+
+
+	<div class="span9">
+
+        <!-- {if count($platform_clients) > 1} -->
+        <ul class="nav nav-tabs">
+
+            <!-- {foreach from=$platform_clients item=client} -->
+            <!-- {if $client.device_client == $current_client} -->
+            <li class="active"><a href="javascript:;">{$client.device_name}</a></li>
+            <!-- {else} -->
+            <li><a class="data-pjax" href='{url path="theme/admin_home_module/init" args="platform={$current_platform}&client={$client.device_client}"}'>{$client.device_name}</a></li>
+            <!-- {/if} -->
+            <!-- {/foreach} -->
+        </ul>
+        <!-- {/if} -->
 		<div style="text-align:center;clear:both;">
 		</div>
 		<section class="demo clearfix">
-			<a class="btn btn-info save-sort" style="margin-bottom:15px;" data-sorturl="{url path='theme/aadmin_home_module/save_sort'}">保存</a>
 			<div id="dragslot">
 				<div class="slot-title avaliable-title">可用模块</div>
 				<div class="slot-title ">已启用模块</div>

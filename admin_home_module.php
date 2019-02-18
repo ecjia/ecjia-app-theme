@@ -65,7 +65,7 @@ class admin_home_module extends ecjia_admin {
 		RC_Script::enqueue_script('admin_home_group', RC_App::apps_url('statics/js/admin_home_group.js', __FILE__));
 		RC_Style::enqueue_style('dragslot', RC_App::apps_url('statics/css/dragslot.css', __FILE__), array());
 		RC_Style::enqueue_style('style', RC_App::apps_url('statics/css/style.css', __FILE__), array());
-		
+
 	}
 
 	/**
@@ -76,7 +76,10 @@ class admin_home_module extends ecjia_admin {
 
 		ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('首页模块管理')));
 		$this->assign('ur_here', __('首页模块管理'));
-		
+
+		$platform = $this->request->input('platform', 'default');
+		$client = $this->request->input('client', 'all');
+
 		//在使用的模块
 		$useing_group = [];
 		$useing_group_code = ecjia::config('home_visual_page');
@@ -110,10 +113,25 @@ class admin_home_module extends ecjia_admin {
 				return 0;
 			}
 		});
+
+		$platform_groups = \Ecjia\App\Theme\ComponentPlatform::getPlatformGroups();
+
+		$platform_clients = \Ecjia\App\Theme\ComponentPlatform::getPlatformClents($platform);
+		if (count($platform_clients) > 1) {
+		    array_unshift($platform_clients, [
+		        'device_client' => 'all',
+                'device_name' => __('统一设置', 'theme'),
+            ]);
+        }
+//		dd($platform_clients);
 		
 		$this->assign('avaliable_group', $components);
 		$this->assign('useing_group', $useing_group);
-		
+		$this->assign('platform_groups', $platform_groups);
+		$this->assign('current_platform', $platform);
+		$this->assign('platform_clients', $platform_clients);
+		$this->assign('current_client', $client);
+
 		$this->display('home_group_module.dwt');
 	}
 	
