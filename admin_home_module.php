@@ -82,8 +82,8 @@ class admin_home_module extends ecjia_admin {
 
 		//在使用的模块
 		$useing_group = [];
-		$useing_group_code = ecjia::config('home_visual_page');
-		$useing_group_code = unserialize($useing_group_code);
+		$useing_group_code = \Ecjia\App\Theme\ComponentPlatform::getUseingHomeComponentByPlatform($platform);;
+//		$useing_group_code = unserialize($useing_group_code);
 		
 		RC_Hook::add_filter('ecjia_theme_component_filter', function ($components) use ($useing_group_code, &$useing_group) {
 			foreach ($components as $key => $val) {
@@ -96,11 +96,10 @@ class admin_home_module extends ecjia_admin {
 			}
 			return $components;
 		});
-		
-	
-		//首页所有模块
-		$factory = new Ecjia\App\Theme\Factory();
-		$components = $factory->getComponents();
+
+
+        //首页所有模块
+        $components = \Ecjia\App\Theme\ComponentPlatform::getAvaliableHomeComponentByPlatform($platform);
 		
 		usort($useing_group, function($a, $b) {
 			if($a->getSort() > $b->getSort()) {
@@ -113,6 +112,7 @@ class admin_home_module extends ecjia_admin {
 				return 0;
 			}
 		});
+
 
 		$platform_groups = \Ecjia\App\Theme\ComponentPlatform::getPlatformGroups();
 

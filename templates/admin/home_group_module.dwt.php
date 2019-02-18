@@ -59,7 +59,7 @@
             <!-- {/foreach} -->
         </ul>
         <!-- {/if} -->
-        
+
 		<section class="demo clearfix">
 			<div id="dragslot">
 				<div class="slot-title avaliable-title">可用模块</div>
