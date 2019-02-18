@@ -99,6 +99,21 @@ class Factory
     
         return $events;
     }
+
+
+    public function getComponentsByFilter(array $codes)
+    {
+        $events = [];
+
+        foreach (self::$factories as $key => $value) {
+            if (in_array($key, $codes)) {
+                $inst = new $value;
+                $events[$key] = $inst;
+            }
+        }
+
+        return $events;
+    }
     
     
     public function component($code)
