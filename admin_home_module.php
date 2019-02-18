@@ -81,10 +81,9 @@ class admin_home_module extends ecjia_admin {
 		$client = $this->request->input('client', 'all');
 
 		//在使用的模块
-		$useing_group = [];
 		$useing_group_code = \Ecjia\App\Theme\ComponentPlatform::getUseingHomeComponentByPlatform($platform);;
-//		$useing_group_code = unserialize($useing_group_code);
-		
+        $useing_group = [];
+
 		RC_Hook::add_filter('ecjia_theme_component_filter', function ($components) use ($useing_group_code, &$useing_group) {
 			foreach ($components as $key => $val) {
 				if (in_array($key, $useing_group_code)) {
@@ -100,19 +99,10 @@ class admin_home_module extends ecjia_admin {
 
         //首页所有模块
         $components = \Ecjia\App\Theme\ComponentPlatform::getAvaliableHomeComponentByPlatform($platform);
-		
-		usort($useing_group, function($a, $b) {
-			if($a->getSort() > $b->getSort()) {
-				return 1;
-			}
-			elseif($a->getSort() < $b->getSort()) {
-				return -1;
-			}
-			else {
-				return 0;
-			}
-		});
 
+        $useing_group = array_sort($useing_group, function($item) {
+            return $item->getSort();
+        });
 
 		$platform_groups = \Ecjia\App\Theme\ComponentPlatform::getPlatformGroups();
 
@@ -123,7 +113,6 @@ class admin_home_module extends ecjia_admin {
                 'device_name' => __('统一设置', 'theme'),
             ]);
         }
-//		dd($platform_clients);
 		
 		$this->assign('avaliable_group', $components);
 		$this->assign('useing_group', $useing_group);
