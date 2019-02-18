@@ -114,7 +114,7 @@ class admin_home_module extends ecjia_admin {
 		$this->assign('avaliable_group', $components);
 		$this->assign('useing_group', $useing_group);
 		
-		$this->display('home_group_sort.dwt');
+		$this->display('home_group_module.dwt');
 	}
 	
 	
