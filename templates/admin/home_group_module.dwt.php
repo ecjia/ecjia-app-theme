@@ -50,7 +50,6 @@
 
         <!-- {if count($platform_clients) > 1} -->
         <ul class="nav nav-tabs">
-
             <!-- {foreach from=$platform_clients item=client} -->
             <!-- {if $client.device_client == $current_client} -->
             <li class="active"><a href="javascript:;">{$client.device_name}</a></li>
@@ -60,8 +59,7 @@
             <!-- {/foreach} -->
         </ul>
         <!-- {/if} -->
-		<div style="text-align:center;clear:both;">
-		</div>
+        
 		<section class="demo clearfix">
 			<div id="dragslot">
 				<div class="slot-title avaliable-title">可用模块</div>
