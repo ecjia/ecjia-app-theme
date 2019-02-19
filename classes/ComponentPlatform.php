@@ -94,9 +94,9 @@ class ComponentPlatform
     {
         $client = self::getApplicationFactory()->client($device_code);
 
-        //第一层数据存在判断
         $components = $client->getApplicationClientOption()->getOption('home_visual_page');
 
+        //第一层数据存在判断
         if (empty($components)) {
             $components = self::getApplicationFactory()->platform($client->getPlatformCode())
                 ->getApplicationPlatformOption()
