@@ -147,7 +147,10 @@ class admin_home_module extends ecjia_admin {
         $platform = $this->request->input('platform', 'default');
         $client = $this->request->input('client', 'all');
 
-		\Ecjia\App\Theme\ComponentPlatform::saveHomeComponentByPlatform($modules, $platform, $client);
+		$result = \Ecjia\App\Theme\ComponentPlatform::saveHomeComponentByPlatform($modules, $platform, $client);
+		if (is_ecjia_error($result)) {
+		    return $this->showmessage($result->get_error_message(), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+        }
 		
 		return $this->showmessage('保存排序成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS,
             array('pjaxurl' => RC_Uri::url('theme/admin_home_module/init', ['platform' => $platform, 'client' => $client])));
