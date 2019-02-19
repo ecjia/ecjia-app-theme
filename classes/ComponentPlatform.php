@@ -96,9 +96,19 @@ class ComponentPlatform
             return self::getUseingDefaultHomeComponentPlatform();
         }
 
-        $components = self::getApplicationFactory()->platform($platform)->getHomeComponent();
+        if (is_null($client) || $client == 'all') {
+            $components = self::getApplicationFactory()->platform($platform)
+                ->getApplicationPlatformOption()
+                ->getOption('home_visual_page');
+        } else {
 
-//        dd($components);
+            $clients = $components = self::getApplicationFactory()->platform($platform)->getClients();
+            $device_code = collect($clients)->where('device_client', $client)->pluck('device_code')->get(0);
+
+            $components = self::getApplicationFactory()->client($device_code)
+                ->getApplicationClientOption()
+                ->getOption('home_visual_page');
+        }
 
         return $components;
     }
@@ -142,6 +152,44 @@ class ComponentPlatform
         $components = (new \Ecjia\App\Theme\Factory())->getComponents();
 
         return $components;
+    }
+
+    /**
+     * 保存产品模块化存储数据
+     * @param $vaule
+     * @param $platform
+     * @param $client
+     * @return mixed
+     */
+    public static function saveHomeComponentByPlatform($vaule, $platform, $client)
+    {
+
+        if ($platform == 'default') {
+            return self::saveDefaultHomeComponentPlatform($vaule);
+        }
+
+        if ($client == 'all') {
+            $saved = self::getApplicationFactory()->platform($platform)
+                ->getApplicationPlatformOption()
+                ->saveOption('home_visual_page', $vaule);
+        } else {
+            $saved = self::getApplicationFactory()->client($client)
+                ->getApplicationClientOption()
+                ->saveOption('home_visual_page', $vaule);
+        }
+
+        return $saved;
+    }
+
+    /**
+     * 保存全局默认的模块化存储数据
+     * @param $vaule
+     * @return mixed
+     */
+    public static function saveDefaultHomeComponentPlatform($vaule)
+    {
+        $vaule = serialize($vaule);
+        return \ecjia_config::write_config('home_visual_page', $vaule);
     }
 
 }
