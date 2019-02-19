@@ -105,9 +105,11 @@ class Factory
     {
         $events = [];
 
-        foreach (self::$factories as $key => $value) {
-            if (in_array($key, $codes)) {
-                $inst = new $value;
+        $allkeys = array_keys(self::$factories);
+
+        foreach ($codes as $key) {
+            if (in_array($key, $allkeys)) {
+                $inst = new self::$factories[$key];
                 $events[$key] = $inst;
             }
         }
