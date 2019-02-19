@@ -88,6 +88,42 @@ class ComponentPlatform
 
     /**
      * 获取指定平台，指定客户端的首页模块化组件设置数据
+     * @param $device_code
+     */
+    public static function getUseingHomeComponentWithData($device_code)
+    {
+        $client = self::getApplicationFactory()->client($device_code);
+
+        //第一层数据存在判断
+        $components = $client->getApplicationClientOption()->getOption('home_visual_page');
+
+        if (empty($components)) {
+            $components = self::getApplicationFactory()->platform($client->getPlatformCode())
+                ->getApplicationPlatformOption()
+                ->getOption('home_visual_page');
+        }
+
+        //第二层数据存在判断
+        if (empty($components)) {
+            $components = self::getUseingDefaultHomeComponentPlatform();
+        }
+
+        //第三层数据存在判断
+        if (empty($components)) {
+            $components = self::getApplicationFactory()->platform($client->getPlatformCode())->getHomeComponent();
+        }
+
+        $components = (new \Ecjia\App\Theme\Factory())->getComponentsByFilter($components);
+
+        $components = collect($components)->map(function($item) {
+            return $item->handleData();
+        });
+
+        return $components;
+    }
+
+    /**
+     * 获取指定平台，指定客户端的首页模块化组件设置数据
      * @param $platform
      */
     public static function getUseingHomeComponentByPlatform($platform, $client = null)
