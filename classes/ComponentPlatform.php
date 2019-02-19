@@ -209,7 +209,10 @@ class ComponentPlatform
                 ->getApplicationPlatformOption()
                 ->saveOption('home_visual_page', $vaule);
         } else {
-            $saved = self::getApplicationFactory()->client($client)
+            $clients = $components = self::getApplicationFactory()->platform($platform)->getClients();
+            $device_code = collect($clients)->where('device_client', $client)->pluck('device_code')->get(0);
+
+            $saved = self::getApplicationFactory()->client($device_code)
                 ->getApplicationClientOption()
                 ->saveOption('home_visual_page', $vaule);
         }
