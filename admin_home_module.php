@@ -81,7 +81,7 @@ class admin_home_module extends ecjia_admin {
 		$client = $this->request->input('client', 'all');
 
 		//在使用的模块
-		$useing_group_code = \Ecjia\App\Theme\ComponentPlatform::getUseingHomeComponentByPlatform($platform);;
+		$useing_group_code = \Ecjia\App\Theme\ComponentPlatform::getUseingHomeComponentByPlatform($platform, $client);
         $useing_group = [];
 
 		RC_Hook::add_filter('ecjia_theme_component_filter', function ($components) use ($useing_group_code, &$useing_group) {
@@ -113,7 +113,19 @@ class admin_home_module extends ecjia_admin {
                 'device_name' => __('统一设置', 'theme'),
             ]);
         }
-		
+
+		if (empty($useing_group)) {
+		    if ($platform != 'default') {
+
+		        if ($client != 'all') {
+                    ecjia_screen::get_current_screen()->add_admin_notice(new admin_notice('当前产品平台客户端未自定义首页模块数据，将使用当前平台的统一设置。', 'alert-warning'));
+                } else {
+                    ecjia_screen::get_current_screen()->add_admin_notice(new admin_notice('当前产品平台未自定义首页模块数据，将使用【全局默认】的设置。', 'alert-warning'));
+                }
+            }
+
+        }
+
 		$this->assign('avaliable_group', $components);
 		$this->assign('useing_group', $useing_group);
 		$this->assign('platform_groups', $platform_groups);
@@ -130,28 +142,15 @@ class admin_home_module extends ecjia_admin {
 	 */
 	public function save_sort() {
 		$this->admin_priv('home_group_manage', ecjia::MSGTYPE_JSON);
-	
-		$sort = $_GET['info'];
-		$sort_last = [];
-	
-		if (!empty($sort)) {
-			foreach ($sort as $k => $v) {
-					if (!empty($v)) {
-						$sort_last[] = $v;
-					}
-			}
-			$sort_last = serialize($sort_last);
-		}
-		if (!empty($sort_last)) {
-// 			if (!ecjia::config('home_visual_page', ecjia::CONFIG_CHECK)) {
-// 				ecjia_config::instance()->insert_config('text', 'home_visual_page', '', array('type' => 'text'));
-// 			}
-			ecjia_config::instance()->write_config('home_visual_page', $sort_last);
-		} else {
-			ecjia_config::instance()->write_config('home_visual_page', '');
-		}
+
+		$modules = $this->request->input('modules');
+        $platform = $this->request->input('platform', 'default');
+        $client = $this->request->input('client', 'all');
+
+		\Ecjia\App\Theme\ComponentPlatform::saveHomeComponentByPlatform($modules, $platform, $client);
 		
-		return $this->showmessage('保存排序成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('theme/admin_home_module/init')));
+		return $this->showmessage('保存排序成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS,
+            array('pjaxurl' => RC_Uri::url('theme/admin_home_module/init', ['platform' => $platform, 'client' => $client])));
 	}
 	
 }
