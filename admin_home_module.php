@@ -122,7 +122,7 @@ class admin_home_module extends ecjia_admin {
 		        if ($client != 'all') {
                     ecjia_screen::get_current_screen()->add_admin_notice(new admin_notice('当前产品平台客户端未自定义首页模块数据，将使用当前平台的统一设置。', 'alert-warning'));
                 } else {
-                    ecjia_screen::get_current_screen()->add_admin_notice(new admin_notice('当前产品平台未自定义首页模块数据，将使用【全局默认】的设置。', 'alert-warning'));
+                    ecjia_screen::get_current_screen()->add_admin_notice(new admin_notice('当前产品平台未自定义首页模块数据，将使用【默认全局】的设置。', 'alert-warning'));
                 }
             }
 
