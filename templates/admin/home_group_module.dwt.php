@@ -114,7 +114,7 @@
 					</ul>
 				</div>
 			</div>
-			<a class="btn btn-info save-sort" data-sorturl="{url path='theme/admin_home_module/save_sort'}">保存</a>
+			<a class="btn btn-info save-sort" data-sorturl='{url path="theme/admin_home_module/save_sort" args="platform={$current_platform}&client={$current_client}"}'>保存</a>
 		</section>
 	</div>
 </div>
