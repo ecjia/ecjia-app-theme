@@ -57,14 +57,16 @@ class admin_home_module extends ecjia_admin {
 
 		RC_Style::enqueue_style('chosen');
 		RC_Style::enqueue_style('uniform-aristo');
+
+        RC_Style::enqueue_style('dragslot', RC_App::apps_url('statics/css/dragslot.css', __FILE__), array());
+        RC_Style::enqueue_style('style', RC_App::apps_url('statics/css/style.css', __FILE__), array());
+
 		RC_Script::enqueue_script('jquery-chosen');
 		RC_Script::enqueue_script('smoke');
 		RC_Script::enqueue_script('jquery-uniform');
 
-		RC_Script::enqueue_script('dragslot', RC_App::apps_url('statics/js/dragslot.js', __FILE__));
-		RC_Script::enqueue_script('admin_home_group', RC_App::apps_url('statics/js/admin_home_group.js', __FILE__));
-		RC_Style::enqueue_style('dragslot', RC_App::apps_url('statics/css/dragslot.css', __FILE__), array());
-		RC_Style::enqueue_style('style', RC_App::apps_url('statics/css/style.css', __FILE__), array());
+		RC_Script::enqueue_script('dragslot', RC_App::apps_url('statics/js/dragslot.js', __FILE__), array(), false, 1);
+		RC_Script::enqueue_script('admin_home_group', RC_App::apps_url('statics/js/admin_home_group.js', __FILE__), array('ecjia-admin'), false, 1);
 
 	}
 
