@@ -44,97 +44,39 @@
 //
 //  ---------------------------------------------------------------------------------
 //
+
 /**
- * ECJIA 管理中心模板管理程序
+ * js语言包设置
  */
+
 defined('IN_ECJIA') or exit('No permission resources.');
 
-class admin_template extends ecjia_admin {
+return array(
+    //theme
+    'theme_page' =>array(
+        'choosetemplate'     => __("启用新的模板将覆盖原来的模板。\n您确定要启用选定的模板吗？", 'theme'),
+        'choosetemplateFG'   => __('您确定要启用选定的模板风格吗？', 'theme'),
+        'abandon'            => __('您确定要放弃本次修改吗？', 'theme'),
+        'write'              => __('请先输入内容！', 'theme'),
 
-    /**
-     * 当前主题对象
-     *
-     * @var \Ecjia\System\Theme\Theme;
-     */
-	private $theme;
+        'confirm_delete_menu'	=> __('确定要移除这个菜单项吗？', 'theme'),
 
-	public function __construct() {
-		parent::__construct();
+        'ok'                 => __('确定', 'theme'),
+        'cancel'             => __('取消', 'theme')
+    ),
 
-		$this->theme = Ecjia_ThemeManager::driver();
+    'theme_library_page' =>array(
+        'editlibrary'       	=> __('您确定要保存编辑内容吗？', 'theme'),
+        'choosetemplate'    	=> __('使用这个模板', 'theme'),
+        'choosetemplateFG'  	=> __('使用这个模板风格', 'theme'),
+        'abandon'           	=> __('您确定要放弃本次修改吗？', 'theme'),
+        'write'             	=> __('请先输入内容！', 'theme'),
+        'ok'                	=> __('确定', 'theme'),
+        'cancel'            	=> __('取消', 'theme'),
+        'confirm_leave'			=> __('您的修改内容还没有保存，您确定离开吗？', 'theme'),
+        'confirm_leave'			=> __('连接错误，请重新选择!', 'theme'),
+        'confirm_edit_project'	=> __('修改库项目是危险的高级操作，修改错误可能会导致前台无法正常显示。您依然确定要修改库项目吗？', 'theme')
+    ),
 
-		RC_Style::enqueue_style('chosen');
-		RC_Style::enqueue_style('uniform-aristo');
-		RC_Script::enqueue_script('jquery-chosen');
-		RC_Script::enqueue_script('smoke');
-		RC_Script::enqueue_script('jquery-uniform');
-
-		
-		RC_Script::enqueue_script('template', RC_App::apps_url('statics/js/template.js', __FILE__));
-		RC_Script::localize_script('template', 'admin_template_lang', config('app-theme::jslang.theme_page'));
-		
-		ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('外观', 'theme'), RC_Uri::url('theme/admin_template/init')));
-	}
-
-	/**
-	 * 模板列表
-	 */
-	public function init() {
-		$this->admin_priv('template_select');
-
-		/* 获得当前的模板的信息 */
-		$curr_style = Ecjia_ThemeManager::getStyleName(); 
-		$template = $this->theme->loadSpecifyStyle($curr_style)->process();
-		$template_styles = $this->theme->getThemeStyles();
-		
-		/* 获得可用的模板 */
-		$availables = Ecjia_ThemeManager::getAvailableThemes();
-
-		/* 获得可用的模板的可选风格数组 */
-		$available_templates = array();
-		if (count($availables) > 0) {
-			foreach ($availables as $key => $theme) {
-			    if ($key == $this->theme->getThemeCode()) {
-			        continue;
-			    }
-				$templates_style[$key] = $theme->getThemeStyles();
-				$available_templates[$key] = $theme->getDefaultStyle()->process();
-			}
-		}
-
-		ecjia_screen::get_current_screen()->remove_last_nav_here();
-		ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('主题管理', 'theme')));
-		
-		$this->assign('ur_here',                  __('主题管理', 'theme'));
-		$this->assign('curr_tpl_style',           $curr_style);
-		$this->assign('template_style',           $templates_style);
-		$this->assign('curr_template',            $template);
-		$this->assign('available_templates',      $available_templates);
-		$this->assign('available_templates_count',  count($available_templates));
-		$this->assign('curr_template_styles',     $template_styles);
-
-		$this->display('template_list.dwt');
-	}
-
-	/**
-	 * 安装模板
-	 */
-	public function install() {
-		$this->admin_priv('template_select');
-		
-		$tpl_name = trim($_GET['tpl_name']);
-		$tpl_fg   = trim($_GET['tpl_fg']) ?: ''; 
-		if ($tpl_name != Ecjia_ThemeManager::getTemplateName()) {
-		    ecjia_config::write(Ecjia_ThemeManager::getTemplateCode(), $tpl_name);
-		}
-		
-        if ($tpl_fg != Ecjia_ThemeManager::getStyleName()) {
-            ecjia_config::write(Ecjia_ThemeManager::getStyleCode(), $tpl_fg);
-        }
-
-		return $this->showmessage(__('启用模板成功。', 'theme'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('theme/admin_template/init')));
-	}
-
-}
-
-// end
+);
+//end
