@@ -116,7 +116,7 @@ HTML;
     protected function queryData()
     {
         $request = royalcms('request');
-
+        dd($request);
        	$city_id	= $request->input('city_id', 0);
        	$city_id	= empty($city_id) ? 0 : $city_id;
 	
