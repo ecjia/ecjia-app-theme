@@ -129,7 +129,7 @@ HTML;
 		    'client'   => $client,
 		    'city'     => $city_id
 	    ]);
-        
+
         return $shortcutDatas;
     }
 
