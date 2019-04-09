@@ -154,7 +154,7 @@ HTML;
         	$filters['store_id'] = $store_id_group;
         }
         //促销商品
-        $filters['promotion'] = 0;
+        $filters['promotion'] = true;
         //排序
         $order_sort         = array('sort_order' => 'ASC', 'goods_id' => 'DESC');
         $filters['sort_by'] = $order_sort;
