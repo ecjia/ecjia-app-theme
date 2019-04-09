@@ -5,14 +5,14 @@ msgstr ""
 "Project-Id-Version: Ecjia App theme 1.27.4\n"
 "Report-Msgid-Bugs-To: https://make.ecjia.com/polyglots/\n"
 "POT-Creation-Date: 2019-04-04 13:28+0800\n"
-"PO-Revision-Date: 2019-04-04 13:28+0800\n"
+"PO-Revision-Date: 2019-04-09 10:29+0800\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <ecjia@ecjia.com>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 2.2\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin_home_module.php:79 admin_home_module.php:80
@@ -38,7 +38,7 @@ msgstr "當前產品平台客戶端未自定義首頁模塊數據，將使用當
 
 #: admin_home_module.php:127
 msgid "当前产品平台未自定义首页模块数据，将使用【默认全局】的设置。"
-msgstr "當前產品平台客戶端未自定義首頁模塊數據，將使用當前平台的統一設置。"
+msgstr "當前產品平台未自定義首頁模塊數據，將使用【默認全局】的設置。"
 
 #: admin_home_module.php:159
 msgid "保存排序成功！"
@@ -787,7 +787,7 @@ msgstr "Sorry, you are not allowed to customize this site."
 
 #: classes/Customize/Manager.php:528
 msgid "Invalid changeset UUID"
-msgstr "Sorry, you are not allowed to customize this site."
+msgstr "Invalid changeset UUID"
 
 #: classes/Customize/Manager.php:555
 msgid "Non-existent changeset UUID."
@@ -1704,14 +1704,14 @@ msgstr "Search Menu Items"
 
 #: classes/Customize/NavMenus.php:1019
 msgid "Search menu items&hellip;"
-msgstr "Search Menu Items"
+msgstr "Search menu items&hellip;"
 
 #: classes/Customize/NavMenus.php:1020
 #: classes/Customize/Section/ThemesSection.php:124
 #: classes/Customize/Section/ThemesSection.php:139
 #: classes/Customize/Widgets.php:815
 msgid "The search results will be updated as you type."
-msgstr "Search Menu Items"
+msgstr "The search results will be updated as you type."
 
 #: classes/Customize/NavMenus.php:1024 classes/Customize/Widgets.php:814
 msgid "Clear Results"
@@ -1728,7 +1728,7 @@ msgstr "Toggle section: %s"
 
 #: classes/Customize/NavMenus.php:1105
 msgid "Custom Links"
-msgstr "Toggle section: %s"
+msgstr "Custom Links"
 
 #: classes/Customize/NavMenus.php:1107
 msgid "Toggle section: Custom Links"
@@ -2018,7 +2018,7 @@ msgstr "Import a Backup"
 
 #: classes/ThemeFramework/Fields/Backup/Backup.php:28
 msgid "copy-paste your backup string here"
-msgstr "Import a Backup"
+msgstr "copy-paste your backup string here"
 
 #: classes/ThemeFramework/Fields/Backup/Backup.php:33
 msgid "Export and Download Backup"
@@ -2147,7 +2147,7 @@ msgstr "This field class is not available!"
 
 #: classes/ThemeFramework/Support/Actions.php:64
 msgid "Search a Icon..."
-msgstr "This field class is not available!"
+msgstr "Search a Icon..."
 
 #: classes/ThemeFramework/Support/Actions.php:65
 msgid "Loading..."
@@ -2215,7 +2215,7 @@ msgstr "請先輸入內容！"
 
 #: configs/jslang.php:62
 msgid "确定要移除这个菜单项吗？"
-msgstr "請先輸入內容！"
+msgstr "確定要移除這個菜單項嗎？"
 
 #: configs/jslang.php:64 configs/jslang.php:74
 msgid "确定"
@@ -2239,7 +2239,7 @@ msgstr "使用這個模板風格"
 
 #: configs/jslang.php:76
 msgid "您的修改内容还没有保存，您确定离开吗？"
-msgstr "使用這個模板風格"
+msgstr "您的修改內容還沒有保存，您確定離開嗎？"
 
 #: configs/jslang.php:77
 msgid "连接错误，请重新选择!"
@@ -2287,7 +2287,7 @@ msgstr "查看購物車"
 
 #: navigator.php:344
 msgid "选购中心"
-msgstr "查看購物車"
+msgstr "選購中心"
 
 #: navigator.php:345
 msgid "团购商品"
@@ -2529,7 +2529,7 @@ msgstr "請給備份模板添加名稱，方便查找。"
 
 #: content/apps/theme/templates/admin/template_backup.dwt.php:55
 msgid "没有可备份的布局设置"
-msgstr "請給備份模板添加名稱，方便查找。"
+msgstr "沒有可備份的佈局設置"
 
 #: content/apps/theme/templates/admin/template_backup.dwt.php:71
 msgid "删除"
