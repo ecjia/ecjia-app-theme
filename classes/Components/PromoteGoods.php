@@ -154,7 +154,11 @@ HTML;
         	$filters['store_id'] = $store_id_group;
         }
         //促销商品
-        $filters['promotion'] = true;
+    	if (array_key_exists('product', $filters)) { //列表显示货品，促销条件调整（货品促销条件和商品商品促销条件）
+			$filters['goods_and_product_promotion'] = true;
+		} else {
+			$filters['goods_promotion'] = true;
+		}
         //排序
         $order_sort         = array('sort_order' => 'ASC', 'goods_id' => 'DESC');
         $filters['sort_by'] = $order_sort;
