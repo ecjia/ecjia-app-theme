@@ -146,9 +146,9 @@ HTML;
 	        'no_need_cashier_goods'	=> true, //不需要收银台商品
         ];
         //是否展示货品
-        if (\ecjia::config('show_product') == 1) {
-        	$filters['product'] = true;
-        }
+//         if (\ecjia::config('show_product') == 1) {
+//         	$filters['product'] = true;
+//         }
         //定位附近店铺id
         if (!empty($store_id_group)) {
         	$filters['store_id'] = $store_id_group;
@@ -156,11 +156,14 @@ HTML;
         //促销商品
         $promotion_type = 'today';
         
-    	if (array_key_exists('product', $filters)) { //列表显示货品，促销条件调整（货品促销条件和商品商品促销条件）
-			$filters['goods_and_product_promotion_type'] = $promotion_type;
-		} else {
-			$filters['goods_promotion_type'] = $promotion_type;
-		}
+//     	if (array_key_exists('product', $filters)) { //列表显示货品，促销条件调整（货品促销条件和商品商品促销条件）
+// 			$filters['goods_and_product_promotion_type'] = $promotion_type;
+// 		} else {
+// 			$filters['goods_promotion_type'] = $promotion_type;
+// 		}
+
+		$filters['goods_and_product_promotion_type'] = $promotion_type;
+		
         //排序
         $order_sort         = array('sort_order' => 'ASC', 'goods_id' => 'DESC');
         $filters['sort_by'] = $order_sort;
