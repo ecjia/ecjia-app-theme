@@ -149,6 +149,7 @@ HTML;
 //         if (\ecjia::config('show_product') == 1) {
 //         	$filters['product'] = true;
 //         }
+        $filters['product'] = true;
         //定位附近店铺id
         if (!empty($store_id_group)) {
         	$filters['store_id'] = $store_id_group;
