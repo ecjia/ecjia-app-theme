@@ -166,7 +166,7 @@ HTML;
 		$filters['goods_and_product_promotion_type'] = $promotion_type;
 		
         //排序
-        $order_sort         = array('sort_order' => 'ASC', 'goods_id' => 'DESC');
+        $order_sort         = array('goods.sort_order' => 'ASC', 'goods.goods_id' => 'DESC');
         $filters['sort_by'] = $order_sort;
         //会员等级价格
         $filters['user_rank'] = $_SESSION['user_rank'];
