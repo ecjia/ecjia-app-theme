@@ -42,9 +42,9 @@ class admin_option extends ecjia_admin
 
             $this->assign('current_code', $section);
 
-            $this->display('template_option.dwt');
+            return $this->display('template_option.dwt');
         } else {
-            $this->display('template_option_default.dwt');
+            return $this->display('template_option_default.dwt');
         }
 
     }
